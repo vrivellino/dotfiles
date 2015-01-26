@@ -3,7 +3,7 @@
 git submodule init
 git submodule update
 
-cd && ln -snf .dotfiles/.bashrc_vr .bashrc_vr
+cd && ln -snf .dotfiles/.bashrc .bashrc_vr
 
 if ! grep -F 'source ~/.bashrc_vr' ~/.bashrc; then
   echo '[ -f ~/.bashrc_vr ] && source ~/.bashrc_vr' >> ~/.bashrc
