@@ -45,18 +45,8 @@ alias ipycon="ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 # needed for vim-ipython
 stty stop undef
 
-
 HISTFILESIZE=10000
 export HISTFILESIZE
-
-watch_elb_health() {
-  elb="$1"
-  [ -z "$elb" ] && return 1
-  while echo -e "\n----- $elb ----" && aws elb describe-instance-health --output text --load-balancer-name "$elb"; do sleep 10 ; done
-}
-
-[ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
-[ -f ~/.bashrc_local ] && source ~/.bashrc_local
 
 # setup git prompt
 git_bash_completion=''
@@ -98,3 +88,14 @@ if source $git_bash_completion; then
   # actual thing that changes the prompt
   export PROMPT_COMMAND='echo -ne "\\033]0;${PWD/#$HOME/~}\\007"; _virtenv_git_ps1 "$GIT_PS1_PRE" "$GIT_PS1_POST"'
 fi
+
+# useful functions
+watch_elb_health() {
+  elb="$1"
+  [ -z "$elb" ] && return 1
+  while echo -e "\n----- $elb ----" && aws elb describe-instance-health --output text --load-balancer-name "$elb"; do sleep 10 ; done
+}
+
+# look for aws creds and/or local overrides
+[ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
+[ -f ~/.bashrc_local ] && source ~/.bashrc_local
