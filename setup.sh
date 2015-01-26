@@ -29,6 +29,13 @@ ln -s .dotfiles/.vimrc .vimrc
 echo '<ENTER> to install IPython ...'
 read junk
 
+if ! sudo yum install python-zmq python-pygments; then
+  echo
+  echo 'Tried to install python-zmq & python-pygments yum.'
+  echo '<ENTER> to continue if you are sure they are available ...'
+  read junk
+fi
+
 # IPython and its dependencies must be installed site-wide
 if [ "$(uname -s)" = 'Darwin' ]; then
   sudo pip install --upgrade gnureadline
