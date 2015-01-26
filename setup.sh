@@ -1,0 +1,36 @@
+#!/bin/bash
+
+git submodule init
+git submodule update
+
+cd && ln -snf .dotfiles/.bashrc_vr .bashrc_vr
+
+if ! grep -F 'source ~/.bashrc_vr' ~/.bashrc; then
+  echo '[ -f ~/.bashrc_vr ] && source ~/.bashrc_vr' >> ~/.bashrc
+fi
+
+# setup vim
+mkdir -p .vim/autoload
+ln -snf ~/.dotfiles/vim-pathogen/autoload/pathogen.vim .vim/autoload/pathogen.vim
+
+if [ -d .vim/bundle ]; then
+  echo 'Warning: .vim/bundle exists ... not adding vim plugins'
+else
+  ln -snf ~/.dotfiles/vim/bundle .vim/bundle
+fi
+
+if [ -s ~/.vimrc ]; then
+  mv ~/.vimrc ~/.vimrc.pre-vr
+fi
+rm -f ~/.vimrc
+ln -s .dotfiles/.vimrc .vimrc
+
+
+echo '<ENTER> to install IPython ...'
+read junk
+
+# IPython and its dependencies must be installed site-wide
+if [ "$(uname -s)" = 'Darwin' ]; then
+  sudo pip install --upgrade gnureadline
+fi
+sudo pip install --upgrade ipython
