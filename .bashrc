@@ -31,7 +31,7 @@ if [ "$(uname -s)" = 'Darwin' ]; then
   # gnu tools I need on my mac
   gsed_path="$(which gsed 2>&1)"
   [ -z "$gsed_path" ] || alias sed="$gsed_path"
-  gnugetopt_path="$(which gnut-getopt 2>&1)"
+  gnugetopt_path="$(which gnu-getopt 2>&1)"
   [ -z "$gnugetopt_path" ] || export GNU_GETOPT="$gnugetopt_path"
 
 # Linux-specifics
