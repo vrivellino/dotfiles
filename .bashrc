@@ -1,24 +1,23 @@
-# setup PATH
-user_local_bin_found=''
-npm_bin_found=''
-home_bin_found=''
+# setup PATH - ensure $HOME/bin and /usr/local/bin are the front.
+#              because I'm silly, I'm de-duping them too.
 OLDIFS="$IFS"
 IFS=':'
+new_path=''
+new_path_sep=''
 for d in $PATH; do
-  [ "$d" = '/usr/local/bin' ] && user_local_bin_found='true'
-  [ "$d" = '/usr/local/share/npm/bin' ] && npm_bin_found='true'
-  [ "$d" = "$HOME/bin" ] && home_bin_found='true'
+  [ "$d" = '/usr/local/bin' ] && continue
+  [ "$d" = '/usr/local/share/npm/bin' ] && continue
+  [ "$d" = "$HOME/bin" ] && continue
+  new_path="${new_path}${new_path_sep}${d}"
+  new_path_sep=':'
 done
 IFS="$OLDIFS"
 
-[ -n "$user_local_bin_found" ] || export PATH=/usr/local/bin:$PATH
-[ -n "$npm_bin_found" ] || [ -d "/usr/local/share/npm/bin" ] \
-  && export PATH="/usr/local/share/npm/bin:$PATH"
-[ -n "$home_bin_found" ] || export PATH="$HOME/bin:$PATH"
-
-if [ -d "$HOME/.rvm/bin" ]; then
-  export PATH=$PATH:$HOME/.rvm/bin
-fi
+[ -d '/usr/local/share/npm/bin' ] && new_path="/usr/local/share/npm/bin:$new_path"
+[ -d '/usr/local/bin' ] && new_path="/usr/local/bin:$new_path"
+[ -d "$HOME/bin" ] && new_path="$HOME/bin:$new_path"
+[ -d "$HOME/.rvm/bin" ] && new_path="$HOME/.rvm/bin:$new_path"
+export PATH="$new_path"
 
 # Mac-specifics
 if [ "$(uname -s)" = 'Darwin' ]; then
