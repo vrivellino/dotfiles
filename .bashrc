@@ -96,6 +96,19 @@ watch_elb_health() {
   while echo -e "\n----- $elb ----" && aws elb describe-instance-health --output text --load-balancer-name "$elb"; do sleep 10 ; done
 }
 
+mk_py_virtualenv() {
+  name="$1"
+  if [ -z "$name" ]; then
+    echo "Usage: $(basename $0) <name>" >&2
+    exit 1
+  fi
+
+  cd && \
+    virtualenv --system-site-packages -p $(which python2.7) ".$name" && \
+    . ".$name/bin/activate" && \
+    pip install --upgrade pep8 boto awscli pyOpenSSL
+}
+
 # look for aws creds and/or local overrides
 [ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local

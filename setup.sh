@@ -29,9 +29,9 @@ ln -s .dotfiles/.vimrc .vimrc
 echo '<ENTER> to install IPython ...'
 read junk
 
-if ! sudo yum install python-zmq python-pygments; then
+if ! sudo yum install python-zmq python-pygments openssl-devel libffi-devel; then
   echo
-  echo 'Tried to install python-zmq & python-pygments yum.'
+  echo 'Tried to install python-zmq, python-pygments, etc. via yum.'
   echo '<ENTER> to continue if you are sure they are available ...'
   read junk
 fi
