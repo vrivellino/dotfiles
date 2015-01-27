@@ -13,10 +13,9 @@ for d in $PATH; do
 done
 IFS="$OLDIFS"
 
-[ -d '/usr/local/share/npm/bin' ] && new_path="/usr/local/share/npm/bin:$new_path"
-[ -d '/usr/local/bin' ] && new_path="/usr/local/bin:$new_path"
-[ -d "$HOME/bin" ] && new_path="$HOME/bin:$new_path"
-[ -d "$HOME/.rvm/bin" ] && new_path="$HOME/.rvm/bin:$new_path"
+for d in /usr/local/share/npm/bin /usr/local/bin $HOME/bin $HOME/.rvm/bin ; do
+  [ -d "$d" ] && new_path="$d:$new_path"
+done
 export PATH="$new_path"
 
 # Mac-specifics
