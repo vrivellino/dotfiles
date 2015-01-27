@@ -104,7 +104,8 @@ mk_py_virtualenv() {
   cd && \
     virtualenv --system-site-packages -p $(which python2.7) ".$name" && \
     . ".$name/bin/activate" && \
-    pip install --upgrade pep8 boto awscli pyOpenSSL
+    pip install --upgrade pep8 boto awscli pyOpenSSL && \
+    deactivate
 }
 
 # look for aws creds and/or local overrides
