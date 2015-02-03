@@ -43,8 +43,9 @@ alias ipycon="ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 # needed for vim-ipython
 stty stop undef
 
+GIT_EDITOR=vim
 HISTFILESIZE=10000
-export HISTFILESIZE
+export GIT_EDITOR HISTFILESIZE
 
 # setup git prompt
 git_bash_completion=''
