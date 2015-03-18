@@ -40,4 +40,4 @@ fi
 if [ "$(uname -s)" = 'Darwin' ]; then
   sudo pip install --upgrade gnureadline
 fi
-sudo pip install --upgrade ipython
+sudo pip install --upgrade "ipython[all]"
