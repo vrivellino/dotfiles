@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my $nospecial = 0;
+my $len = shift() || 10;
+if (( $len eq '--nospecial' )||( $len eq '-nospecial' ))
+{
+	$nospecial = 1;
+	$len = shift() || 10;
+}
+my @password = ();
+my @chars = split(' ',
+ 'a b c d e f g h i j k l m n o p q r s t u v w x y z ' .
+ 'A B C E E F G H I J K L M N O P Q R S T U V W X Y Z ' );
+my @nums = split(' ', '0 1 2 3 4 5 6 7 8 9' );
+my @spcs = split(' ', '! @ $ % ^ & * , . ?');
+my @all = $nospecial ? ( @chars, @nums ) : ( @chars, @nums, @spcs );
+my $DEBUG = 0;
+
+my $nFound = 0;
+my $sFound = 0;
+for ( my $i = 0; $i < $len; $i++ )
+{
+  my $_rand = int( rand scalar @all );
+  my $char = $all[$_rand];
+  my $searchStr = $char eq '^' ? '[\^]' : qq{[$char]};
+  #print( '\t ^', $searchStr, q{\$\n} );
+  while ( scalar @password > 2 && grep( /^$searchStr$/, @password ) > 2 )
+  {
+    print( '*** PASS: ', @password, qq{  RAND: $char\n} ) if $DEBUG;
+    $_rand = int( rand scalar @all );
+    $char = $all[$_rand];
+    $searchStr = qq{[$char]};
+  }
+  $nFound = 1 if grep( /^$searchStr$/, @nums );
+  $sFound = 1 if grep( /^$searchStr$/, @spcs ) || $nospecial;
+  print( qq{*** ADDING '$char'\n} ) if $DEBUG;
+  push( @password, $char );
+}
+
+print( '--- Intermediate Password: ', @password, qq{\n} ) if $DEBUG;
+
+if (( ! $nFound )||( ! $sFound ))
+{
+  my $i = int( rand(scalar @password - 1) );
+  $password[$i] = $nums[ int( rand scalar @nums ) ];
+  $password[$i+1] = $spcs[ int( rand scalar @spcs ) ] unless $nospecial;
+  print( '+++ No numbers and/or specials found ... New Pass: ', @password, qq{\n} ) if $DEBUG;
+}
+print @password, qq{\n};
+
