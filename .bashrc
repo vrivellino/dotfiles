@@ -48,15 +48,15 @@ HISTFILESIZE=10000
 export GIT_EDITOR HISTFILESIZE
 
 # setup git prompt
-git_bash_completion=''
+git_bash_prompt_sh=''
 for d in /usr/local/etc/bash_completion.d /usr/share/git-core/contrib/completion ; do
   if [ -f "$d/git-prompt.sh" ]; then
-    git_bash_completion="$d/git-prompt.sh"
+    git_bash_prompt_sh="$d/git-prompt.sh"
     break
   fi
 done
 
-if source $git_bash_completion; then
+if source $git_bash_prompt_sh; then
   # PRE and POST vars make prompt look like this:
   # <GIT_PS1_PRE> <GIT-PROMPT> <GIT_PS1_POST>
   export GIT_PS1_PRE='\[\033[01;32m\]\u\[\033[01;34m\]@\h\[\033[00m\] \w'
