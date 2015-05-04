@@ -16,7 +16,7 @@ IFS="$OLDIFS"
 for d in /usr/local/share/npm/bin /usr/local/bin $HOME/bin $HOME/.rvm/bin ; do
   [ -d "$d" ] && new_path="$d:$new_path"
 done
-export PATH="$new_path"
+export PATH="./node_modules/.bin:$new_path"
 
 # Mac-specifics
 if [ "$(uname -s)" = 'Darwin' ]; then
