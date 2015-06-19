@@ -88,6 +88,14 @@ if source $git_bash_prompt_sh; then
   export PROMPT_COMMAND='echo -ne "\\033]0;${PWD/#$HOME/~}\\007"; _virtenv_git_ps1 "$GIT_PS1_PRE" "$GIT_PS1_POST"'
 fi
 
+# automatically set email if parent dir has a .git-email file
+git_clone() {
+  git clone "$@"
+  if cd "$(basename "$1" .git)" && [ -s ../.git-email ]; then
+    git config user.email "$(cat ../.git-email)"
+  fi
+}
+
 # useful functions
 watch_elb_health() {
   elb="$1"
