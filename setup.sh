@@ -25,6 +25,10 @@ fi
 rm -f ~/.vimrc
 ln -s .dotfiles/.vimrc .vimrc
 
+if [ -e ~/.lein ] && ! [ -h ~/.lein ]; then
+  mv ~/.lein ~/.lein.pre-vr
+fi
+ln -s .dotfiles/.lein .lein
 
 echo '<ENTER> to install IPython ...'
 read junk
