@@ -196,9 +196,9 @@ _proj_parent_dir()
     local cur=${COMP_WORDS[COMP_CWORD]}
     local prev=${COMP_WORDS[COMP_CWORD-1]}
     if [ $COMP_CWORD -eq 1 ]; then
-        COMPREPLY=( $( compgen -W "$(cd "$PROJECT_BASE_DIR" && find . -type d -mindepth 1 -maxdepth 1 -exec basename {} \;)" -- $cur ) )
+        COMPREPLY=( $( compgen -W "$(cd "$PROJECT_BASE_DIR" && find . -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)" -- $cur ) )
     elif [ $COMP_CWORD -eq 2 ]; then
-        COMPREPLY=( $( compgen -W "$(cd "$PROJECT_BASE_DIR/$prev" && find . -type d -mindepth 1 -maxdepth 1 -exec basename {} \;)" -- $cur ) )
+        COMPREPLY=( $( compgen -W "$(cd "$PROJECT_BASE_DIR/$prev" && find . -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)" -- $cur ) )
     fi
     return 0
 }
