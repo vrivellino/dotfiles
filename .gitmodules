@@ -10,9 +10,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = git@github.com:scrooloose/syntastic
-[submodule "vim/bundle/ipython"]
-	path = vim/bundle/ipython
-	url = git@github.com:ivanov/vim-ipython
 [submodule "vim/bundle/vim-json"]
 	path = vim/bundle/vim-json
 	url = git@github.com:leshill/vim-json
