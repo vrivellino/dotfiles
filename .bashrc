@@ -39,6 +39,8 @@ fi
 
 alias vi=vim
 alias grep='grep --color'
+alias zgrep='zgrep --color'
+alias fgrep='fgrep --color'
 alias ipycon="ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 # needed for vim-ipython
 stty stop undef
