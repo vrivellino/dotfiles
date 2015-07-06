@@ -30,6 +30,11 @@ if [ -e ~/.lein ] && ! [ -h ~/.lein ]; then
 fi
 ln -s .dotfiles/.lein .lein
 
+if [ -z "$(which lein 2>/dev/null)" ]; then
+    mkdir -m0755 -p ~/bin
+    curl -o ~/bin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+fi
+
 echo '<ENTER> to install IPython ...'
 read junk
 
