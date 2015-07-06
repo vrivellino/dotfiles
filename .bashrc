@@ -29,12 +29,29 @@ if [ "$(uname -s)" = 'Darwin' ]; then
   # gnu tools I need on my mac
   gsed_path="$(which gsed 2>&1)"
   [ -z "$gsed_path" ] || alias sed="$gsed_path"
+  gtar_path="$(which gtar 2>&1)"
+  [ -z "$gtar_path" ] || alias tar="$gtar_path"
   gnugetopt_path="$(which gnu-getopt 2>&1)"
   [ -z "$gnugetopt_path" ] || export GNU_GETOPT="$gnugetopt_path"
 
 # Linux-specifics
 elif [ "$(uname -s)" = 'Linux' ]; then
   alias ls='LC_ALL=POSIX ls --color=auto -F -T 0 -b -a'
+fi
+
+# setup JAVA_HOME vars, if possible
+if [ -x /usr/libexec/java_home ]; then
+    java_home_path="$(/usr/libexec/java_home -v 1.7 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        export JAVA_7_HOME="$java_home_path"
+    fi
+    java_home_path="$(/usr/libexec/java_home -v 1.8 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        export JAVA_8_HOME="$java_home_path"
+    fi
+fi
+if [ -n "$JAVA_8_HOME" ]; then
+    export JAVA_HOME="$JAVA_8_HOME"
 fi
 
 alias vi=vim
