@@ -107,14 +107,6 @@ if source $git_bash_prompt_sh; then
   export PROMPT_COMMAND='echo -ne "\\033]0;${PWD/#$HOME/~}\\007"; _virtenv_git_ps1 "$GIT_PS1_PRE" "$GIT_PS1_POST"'
 fi
 
-# automatically set email if parent dir has a .git-email file
-git_clone() {
-  git clone "$@"
-  if cd "$(basename "$1" .git)" && [ -s ../.git-email ]; then
-    git config user.email "$(cat ../.git-email)"
-  fi
-}
-
 # useful functions
 watch_elb_health() {
   elb="$1"
@@ -233,6 +225,19 @@ _proj_parent_dir()
 }
  
 complete -F _proj_parent_dir proj
+
+# automatically set email if parent dir has a .git-email file
+git_clone() {
+  git clone "$@"
+  if cd "$(basename "$1" .git)"; then
+    if [ -s ../.git-email ]; then
+      git config user.email "$(cat ../.git-email)"
+    fi
+    if [ -s ../.git-signing-key ]; then
+      git config user.signingkey "$(cat ../.git-signing-key)"
+    fi
+  fi
+}
 
 # look for aws creds and/or local overrides
 [ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
