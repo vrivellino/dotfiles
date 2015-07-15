@@ -125,12 +125,22 @@ watch_elb_health() {
 mk_py_virtualenv() {
   name="$1"
   if [ -z "$name" ]; then
-    echo "Usage: $(basename $0) <name>" >&2
-    exit 1
+    echo "Usage: mk_py_virtualenv <name> [/path/to/python]" >&2
+    return 1
+  fi
+
+  python_path=$(which python2.7)
+  if [ -n "$2" ]; then
+    python_path="$2"
+    if ! $python_path --version 2>&1 | grep -q '^Python [23][.][0-9]\+[.][0-9]\+$'; then
+      echo "Fatal: $python_path --version fails" >&2
+      echo "Usage: mk_py_virtualenv <name> [/path/to/python]" >&2
+      return 1
+    fi
   fi
 
   cd && \
-    virtualenv --system-site-packages -p $(which python2.7) ".$name" && \
+    virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
     pip install --upgrade pep8 boto awscli pyOpenSSL && \
     deactivate
