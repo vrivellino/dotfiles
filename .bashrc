@@ -256,4 +256,7 @@ git_clone() {
 
 # look for aws creds and/or local overrides
 [ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
+for projdir in ~/Projects/*/.bashrc ; do
+  source "$projdir"
+done
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
