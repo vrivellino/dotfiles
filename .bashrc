@@ -131,8 +131,7 @@ mk_py_virtualenv() {
     fi
   fi
 
-  cd && \
-    virtualenv --system-site-packages -p "$python_path" ".$name" && \
+  virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
     pip install --upgrade pep8 boto awscli pyOpenSSL && \
     deactivate
