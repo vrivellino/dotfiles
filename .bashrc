@@ -233,17 +233,22 @@ git_config_update_localrepo() {
   if [ -s ../.git-signing-key ]; then
     git config user.signingkey "$(cat ../.git-signing-key)"
   fi
+  if [ -s ../.git-username ]; then
+    git config user.name "$(cat ../.git-username)"
+  fi
 }
 
 # helper to update git config for existing repos
 git_config_update_all() {
-  cd "$PROJECT_BASE_DIR" || return 1
+  pushd "$PROJECT_BASE_DIR" > /dev/null || return 1
   for d in */* ; do
-    if pushd "$d" > /dev/null 2>&1; then
-      [ -d .git ] && git_config_update_localrepo
+    if [ -d "$d/.git" ] && pushd "$d" > /dev/null; then
+      echo "Ensuring local git config in $d"
+      git_config_update_localrepo
       popd > /dev/null
     fi
   done
+  popd > /dev/null
 }
 
 # automatically set email if parent dir has a .git-email file
