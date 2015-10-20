@@ -66,6 +66,11 @@ GIT_EDITOR=vim
 HISTFILESIZE=10000
 export GIT_EDITOR HISTFILESIZE
 
+# enable git completion on Mac OSX
+if [ "$(uname -s)" = 'Darwin' ]; then
+  source /usr/local/etc/bash_completion.d/git-completion.bash
+fi
+
 # setup git prompt
 git_bash_prompt_sh=''
 for d in /usr/local/etc/bash_completion.d /usr/share/git-core/contrib/completion ; do
