@@ -58,7 +58,7 @@ alias vi=vim
 alias grep='grep --color'
 alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
-alias ipycon="ipython qtconsole > ~/.ipython/con.out 2>&1 &"
+alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 # needed for vim-ipython
 stty stop undef
 
@@ -133,8 +133,9 @@ mk_py_virtualenv() {
 
   virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
-    pip install --upgrade pep8 boto awscli pyOpenSSL grip && \
-    deactivate
+    pip install --upgrade pep8 boto awscli pyOpenSSL grip gnureadline && \
+      pip install --upgrade 'ipython[all]' && \
+      deactivate
 }
 
 # from: http://ethertubes.com/bash-snippet-url-encoding/
