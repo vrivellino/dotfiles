@@ -205,6 +205,17 @@ s3_signed_url() {
     echo "http://s3.amazonaws.com/${bucket}/${path}?${query}"
 }
 
+# random password generator
+randpass() {
+    < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-10};echo;
+    < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-12};echo;
+    < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-16};echo;
+    echo
+    < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-10};echo;
+    < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-12};echo;
+    < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-16};echo;
+}
+
 # base dir for projects
 : ${PROJECT_BASE_DIR:=~/Projects}
 
