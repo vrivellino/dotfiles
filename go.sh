@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+mkdir -m0755 -p ~/bin
+
 cd "$(dirname $0)"
 
 git submodule init
