@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -ex
 
-pip install --upgrade virtualenv
+# only install rvm if we're setting up a dev environment
+if [ "$1" != 'dev' ]; then
+  exit
+fi
 
-## copied from monolithic setup.sh - refactor into linux support
-#if ! sudo yum install python-zmq python-pygments openssl-devel libffi-devel; then
-#  echo
-#  echo 'Tried to install python-zmq, python-pygments, etc. via yum.'
-#  echo '<ENTER> to continue if you are sure they are available ...'
-#  read junk
+# pip came from homebrew, shouldn't need sudo
+if [ "$(uname -s)" == 'Darwin' ]; then
+  pip install --upgrade virtualenv
+  exit
+fi
+
+## if we're on Amazon, we'll need to sudo pip install these
+#if [ "$(uname -s)" == 'Linux' ] || grep -q 'Amazon Linux' /etc/system-release; then
+#  exit
 #fi
 
-## Don't think this needs to be installed site-wide anymore
-## IPython and its dependencies must be installed site-wide
-#if [ "$(uname -s)" = 'Darwin' ]; then
-#  sudo pip install --upgrade gnureadline
-#fi
-#sudo pip install --upgrade "ipython[all]"

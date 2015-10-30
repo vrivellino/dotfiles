@@ -9,5 +9,9 @@ git submodule init
 git submodule update
 
 for script in ./setup/*.sh; do
-  $script
+  if [ "$(uname -s)" = 'Darwin' ]; then
+    $script dev
+  else
+    $script "$@"
+  fi
 done

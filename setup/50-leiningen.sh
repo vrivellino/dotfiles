@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -ex
 
+# only install leiningen if we're setting up a dev environment
+if [ "$1" != 'dev' ]; then
+  exit
+fi
+
 if [ -e ~/.lein ] && ! [ -h ~/.lein ]; then
   mv ~/.lein ~/.lein.pre-vr
 fi

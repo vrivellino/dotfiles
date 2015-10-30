@@ -12,5 +12,10 @@ fi
 
 mkdir -p .vim/autoload
 ln -snf ~/.dotfiles/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
-ln -snf ~/.dotfiles/vim/bundle ~/.vim/bundle
+
+# only setup vim modules if we're dev
+if [ "$1" = 'dev' ]; then
+  ln -snf ~/.dotfiles/vim/bundle ~/.vim/bundle
+fi
+
 ln -snf ~/.dotfiles/.vimrc ~/.vimrc
