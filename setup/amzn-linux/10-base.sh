@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # only install rvm if we're setting up a dev environment
-[ "$dev_install" = 'true' ] || exit
+[ "$dev_install" = 'true' ] || exit 0
 
 set -ex
 

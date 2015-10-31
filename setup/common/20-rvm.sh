@@ -2,7 +2,7 @@
 set -ex
 
 # only install rvm if we're setting up a dev environment
-[ "$dev_install" = 'true' ] || exit
+[ "$dev_install" = 'true' ] || exit 0
 
 if [ ! -d ~/.rvm ]; then
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
