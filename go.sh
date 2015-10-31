@@ -9,8 +9,10 @@ case "$OSTYPE" in
     export dev_install='true'
     ;;
   linux*)
-    if grep -q 'Amazon Linux' /etc/system-release; then
+    if grep -q amazon /etc/system-release-cpe; then
       target_sys=amzn-linux
+    elif grep -q centos:7 /etc/system-release-cpe; then
+      target_sys=centos7
     else
       echo "Unsupported Linux release: $(cat /etc/system-release)" >&2
       exit 1
