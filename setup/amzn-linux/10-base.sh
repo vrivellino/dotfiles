@@ -29,13 +29,11 @@ done
 # nodejs
 if [ "$(node --version 2>&1)" != 'v4.2.1' ]; then
   curl -L -o /tmp/node-v4.2.1-linux-x64.tar.gz https://nodejs.org/dist/v4.2.1/node-v4.2.1-linux-x64.tar.gz
-  cd /opt
-  sudo tar xzf /tmp/node-v4.2.1-linux-x64.tar.gz
-  sudo chown -R root:root /opt/node-v4.2.1-linux-x64
-  rm -f /tmp/node-v4.2.1-linux-x64.tar.gz
+  cd /usr/local
+  sudo tar --strip-components 1 --owner=root --group=root -xzf /tmp/node-v4.2.1-linux-x64.tar.gz
+  sudo rm -f /tmp/node-v4.2.1-linux-x64.tar.gz CHANGELOG.md LICENSE README.md
+  sudo chown -R root:root .
 fi
-sudo ln -snf /opt/node-v4.2.1-linux-x64/bin/node /usr/local/bin/node
-sudo ln -snf /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm
 
 # casper js
 if [ ! -d ~/casperjs ]; then
