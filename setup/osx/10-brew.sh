@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-
-# only run on Mac
-if [ "$(uname -s)" != 'Darwin' ]; then
-  exit
-fi
-
 set -ex
 
 if ! which brew > /dev/null 2>&1 ; then

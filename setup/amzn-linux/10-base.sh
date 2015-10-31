@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-# only run on Amazon Linux
-if [ "$1" != 'dev' ] || [ "$(uname -s)" != 'Linux' ] || grep -q -v 'Amazon Linux' /etc/system-release; then
-  exit
-fi
+# only install rvm if we're setting up a dev environment
+[ "$dev_install" = 'true' ] || exit
 
 set -ex
 
 # install what we can from yum
-
 sudo yum groupinstall -y 'Development Tools'
 sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig python27-pip tree vim-enhanced zip unzip
 sudo yum --enablerepo epel install -y tidy czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python27-pygments python27-virtualenv
