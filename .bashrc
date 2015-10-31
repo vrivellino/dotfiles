@@ -144,10 +144,17 @@ dev_py_virtualenv() {
     fi
   fi
 
+  # only install ipython terminal on Linux
+  if [ "$(uname -s)" = 'Darwin' ]; then
+    ipy_install_type='all'
+  else
+    ipy_install_type='terminal'
+  fi
+
   virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
     pip install --upgrade pep8 boto awscli pyOpenSSL grip gnureadline && \
-      pip install --upgrade 'ipython[all]' && \
+      pip install --upgrade "ipython[$ipy_install_type]" && \
       deactivate
 }
 
