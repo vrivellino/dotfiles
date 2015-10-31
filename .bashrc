@@ -69,6 +69,9 @@ export GIT_EDITOR HISTFILESIZE
 # enable git completion on Mac OSX
 if [ "$(uname -s)" = 'Darwin' ]; then
   source /usr/local/etc/bash_completion.d/git-completion.bash
+elif [ "$(uname -s)" = 'Linux' ] && grep -q 'Amazon Linux' /etc/system-release; then
+  git_bash_completion_sh="/usr/share/doc/git-$(rpm -q --queryformat '%{VERSION}' git 2>/dev/null)/contrib/completion/git-completion.bash"
+  [ -f "$git_bash_completion_sh" ] && source "$git_bash_completion_sh"
 fi
 
 # setup git prompt
