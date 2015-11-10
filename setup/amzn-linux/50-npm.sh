@@ -7,3 +7,4 @@ set -ex
 sudo /usr/local/bin/npm install -g gulp
 sudo /usr/local/bin/npm install -g jslint
 sudo /usr/local/bin/npm install -g jsonlint
+sudo /usr/local/bin/npm install -g jshint

@@ -161,3 +161,5 @@ let g:pymode_folding = 0
 let g:pymode_options_colorcolumn = 0
 
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
+let g:syntastic_javascript_checkers = ["jshint"]
+let g:syntastic_javascript_jshint_args = '--config ~/.dotfiles/.jshintrc'
