@@ -59,8 +59,6 @@ alias grep='grep --color'
 alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
 alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&1 &"
-# needed for vim-ipython
-stty stop undef
 
 GIT_EDITOR=vim
 HISTFILESIZE=10000
@@ -322,3 +320,6 @@ if [ -n "$(ls -1 ~/Projects/*/.bashrc 2> /dev/null)" ]; then
   done
 fi
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
+
+# needed for vim-ipython
+stty stop undef
