@@ -21,3 +21,9 @@ cd ~/.dotfiles
 ```
 
 If on Linux, you need to explicitly specify if it's for a dev environment: `./go.sh dev`
+
+## Other stuff I install on my Mac
+
+* [Chrome](https://www.google.com/intl/en/chrome/browser/desktop/index.html)
+* [iTerm2](https://www.iterm2.com/)
+* [XQuartz](http://www.xquartz.org/)
