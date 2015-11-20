@@ -27,3 +27,7 @@ If on Linux, you need to explicitly specify if it's for a dev environment: `./go
 * [Chrome](https://www.google.com/intl/en/chrome/browser/desktop/index.html)
 * [iTerm2](https://www.iterm2.com/)
 * [XQuartz](http://www.xquartz.org/)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/)
+* [ChefDK](https://downloads.chef.io/chef-dk/)
+* [f.lux](https://justgetflux.com/news/pages/mac/)
