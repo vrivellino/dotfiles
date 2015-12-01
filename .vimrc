@@ -55,7 +55,7 @@ if has("autocmd")
  autocmd FileType pl set noexpandtab
  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
  autocmd FileType markdown set tw=110
- autocmd FileType javascript set expandtab tabstop=2 sw=2
+ autocmd FileType javascript,yaml set expandtab tabstop=2 sw=2
 
  " Use JS highlighting for json
  " autocmd BufNewFile,BufRead *.json set ft=javascript
