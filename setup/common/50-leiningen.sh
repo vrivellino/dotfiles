@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-# only install rvm if we're setting up a dev environment
+# only install leiningen if we're setting up a dev environment
 [ "$dev_install" = 'true' ] || exit 0
 
 if [ -e ~/.lein ] && ! [ -h ~/.lein ]; then

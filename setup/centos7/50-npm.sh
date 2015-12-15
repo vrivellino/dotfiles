@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-# only install rvm if we're setting up a dev environment
+# only install node tools if we're setting up a dev environment
 [ "$dev_install" = 'true' ] || exit 0
 
 sudo /usr/local/bin/npm install -g gulp
