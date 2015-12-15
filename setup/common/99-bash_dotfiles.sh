@@ -13,7 +13,3 @@ fi
 if ! grep -F 'source ~/.bashrc' ~/.bash_profile; then
   echo '[ -f ~/.bashrc ] && source ~/.bashrc' >> ~/.bash_profile
 fi
-
-if ! grep -F 'source "$HOME/.rvm/scripts/rvm' ~/.bash_profile; then
-  echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"' >> ~/.bash_profile
-fi
