@@ -1,12 +1,19 @@
 # base dir for projects
 : ${PROJECT_BASE_DIR:=~/Projects}
 
- proj() {
-    if [ -z "$1" -a -z "$2" ]; then
-        echo "Usage: $(basename $0) <parent-dir> <project>" >&2
+proj() {
+    if [ -n "$1" -a -n "$2" ]; then
+        cd "$PROJECT_BASE_DIR/$1/$2/"
+    elif [ -n "$1" ]; then
+        cd "$PROJECT_BASE_DIR/$1/"
+    else
+        git_cdup=$(git rev-parse --show-cdup 2>/dev/null)
+        if [ -n "$git_cdup" ]; then
+            cd $git_cdup
+            return $?
+        fi
         return 1
     fi
-    cd "$PROJECT_BASE_DIR/$1/$2"
 }
 
 # auto-complete parent dir
