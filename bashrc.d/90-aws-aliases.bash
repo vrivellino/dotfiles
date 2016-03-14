@@ -12,6 +12,9 @@ aws_clear() {
     export GIT_PS1_PRE='\[\033[01;32m\]\u\[\033[01;34m\]@\h\[\033[00m\] \w'
 }
 
+# list all stacks
+alias cfn-list-stacks="aws cloudformation list-stacks --query 'StackSummaries[?StackStatus!=\`DELETE_COMPLETE\`].[StackName,LastUpdatedTime,CreationTime,StackStatus]'"
+
 # from: http://ethertubes.com/bash-snippet-url-encoding/
 _s3_urlencode () {
     local tab="$(echo -en "\x9")"
