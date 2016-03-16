@@ -3,7 +3,8 @@ for bashrc in ~/.dotfiles/bashrc.d/*.bash ; do
   . "$bashrc"
 done
 
-export HISTFILESIZE=10000
+export HISTSIZE=25000
+export HISTFILESIZE=500000
 
 # look for aws creds and/or local overrides
 [ -f ~/.bashrc_aws ] && source ~/.bashrc_aws
