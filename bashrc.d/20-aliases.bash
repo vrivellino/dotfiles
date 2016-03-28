@@ -2,9 +2,8 @@
 if [ "$(uname -s)" = 'Darwin' ]; then
   CLICOLOR=1
   LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-  LC_ALL=POSIX
-  export CLICOLOR LSCOLORS LC_ALL
-  alias ls='ls -F -T -b -a'
+  export CLICOLOR LSCOLORS
+  alias ls='LC_ALL=POSIX ls -F -T -b -a'
 
   # gnu tools I need on my mac
   gsed_path="$(which gsed 2>&1)"
