@@ -27,6 +27,8 @@ alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&
 
 # random password generator
 randpass() {
+    local lc_all_old="$LC_ALL"
+    export LC_ALL=POSIX
     < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-10};echo;
     < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-12};echo;
     < /dev/urandom tr -dc '_.!@#$%^&*A-Z-a-z-0-9' | head -c${1:-16};echo;
@@ -34,4 +36,5 @@ randpass() {
     < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-10};echo;
     < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-12};echo;
     < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-16};echo;
+    export LC_ALL="$lc_all_old"
 }
