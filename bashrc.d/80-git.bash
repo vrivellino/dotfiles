@@ -77,3 +77,5 @@ git_clone() {
     git_config_update_localrepo
   fi
 }
+
+# alias.dm=!git branch --merged | grep -v '\*' | xargs -n 1 git branch -d
