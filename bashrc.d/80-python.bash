@@ -31,8 +31,9 @@ dev_py_virtualenv() {
 
   virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
+    pip install --upgrade pip && \
     pip install --upgrade pep8 boto awscli pyOpenSSL grip gnureadline && \
-      pip install --upgrade "ipython[$ipy_install_type]<4.0.0" && \
+    pip install --upgrade "ipython[$ipy_install_type]<5.0.0 " && \
       deactivate
 }
 
@@ -55,6 +56,7 @@ aws_py_virtualenv() {
 
   virtualenv --system-site-packages -p "$python_path" ".$name" && \
     . ".$name/bin/activate" && \
+    pip install --upgrade pip && \
     pip install --upgrade boto awscli && \
       deactivate
 }
