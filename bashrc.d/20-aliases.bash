@@ -23,7 +23,7 @@ alias vi=vim
 alias grep='grep --color'
 alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
-alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&1 &"
+#alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 
 # random password generator
 randpass() {
