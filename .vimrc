@@ -21,6 +21,7 @@ set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 
 set hidden      " Switch buffers without saving
+set number      " Always show line numbers
 
 set modeline
 set modelines=5
@@ -29,9 +30,6 @@ set tabstop=4
 "set softtabstop=2
 "set shiftwidth=2
 set expandtab
-
-set clipboard=unnamed " enable copies to clipboard
-set number            " show line numbers
 
 " filetype plugin on
 
@@ -182,5 +180,5 @@ let g:syntastic_javascript_checkers = ["jshint"]
 let g:syntastic_javascript_jshint_args = '--config ~/.dotfiles/.jshintrc'
 
 " vim-slime
-let b:slime_default_config = {"sessionname": "slime", "windowname": "0"}
+let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
 let g:slime_python_ipython = 1
