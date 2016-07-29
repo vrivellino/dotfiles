@@ -43,14 +43,15 @@ cd ~/bin
 ln -snf ../casperjs/bin/casperjs casperjs
 
 # packer
-if [ ! -d ~/packer-0.8.6 ]; then
-  curl -o /tmp/packer.zip https://releases.hashicorp.com/packer/0.8.6/packer_0.8.6_linux_amd64.zip
-  mkdir -p ~/packer-0.8.6
-  unzip -d ~/packer-0.8.6 /tmp/packer.zip
+packer_ver='0.10.1'
+if [ ! -d ~/packer-${packer_ver} ]; then
+  curl -o /tmp/packer.zip https://releases.hashicorp.com/packer/${packer_ver}/packer_${packer_ver}_linux_amd64.zip
+  mkdir -p ~/packer-${packer_ver}
+  unzip -d ~/packer-${packer_ver} /tmp/packer.zip
   rm -f /tmp/packer.zip
 fi
 cd ~/bin
-for f in ~/packer-0.8.6/* ; do
+for f in ~/packer-${packer_ver}/* ; do
   if [ -f $f -a -x $f ]; then
     ln -snf $f $(basename $f)
   fi
