@@ -178,7 +178,30 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
 let g:syntastic_javascript_checkers = ["jshint"]
-let g:syntastic_javascript_jshint_args = '--config ~/.dotfiles/.jshintrc'
+
+" Find appropriate jshintrc for syntastic jshint
+function s:find_jshintrc(dir)
+    let l:found = globpath(a:dir, '.jshintrc')
+    if filereadable(l:found)
+        return l:found
+    endif
+
+    let l:parent = fnamemodify(a:dir, ':h')
+    if l:parent != a:dir
+        return s:find_jshintrc(l:parent)
+    endif
+
+    return "~/.dotfiles/.jshintrc"
+endfunction
+
+function UpdateJsHintConf()
+    let l:dir = expand('%:p:h')
+    let l:jshintrc = s:find_jshintrc(l:dir)
+    " let g:syntastic_javascript_jshint_conf = l:jshintrc
+    let g:syntastic_javascript_jshint_args = join(['--config', l:jshintrc], ' ')
+endfunction
+
+au BufEnter * call UpdateJsHintConf()
 
 " vim-slime
 let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
