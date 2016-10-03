@@ -161,6 +161,7 @@ syntax on
 
 " pymode
 let g:pymode_lint_ignore = "E501"
+let g:pymode_rope = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_folding = 0
 let g:pymode_options_colorcolumn = 0
