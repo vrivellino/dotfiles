@@ -11,19 +11,20 @@ sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig python27-pip tree vim-enh
 sudo yum --enablerepo epel install -y tidy czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python27-pygments python27-virtualenv
 
 # maven
-if [ ! -d ~/apache-maven-3.3.3 ]; then
-  curl -o /tmp/apache-maven-keys http://www.apache.org/dist/maven/KEYS
-  curl -o /tmp/apache-maven-3.3.3-bin.zip.asc http://www.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.zip.asc
-  curl -o /tmp/apache-maven-3.3.3-bin.zip http://apache.mirrors.tds.net/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.zip
+maven_ver='3.5.0'
+if [ ! -d ~/apache-maven-${maven_ver} ]; then
+  curl -o /tmp/apache-maven-keys https://www.apache.org/dist/maven/KEYS
+  curl -o /tmp/apache-maven-${maven_ver}-bin.zip.asc https://www.apache.org/dist/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip.asc
+  curl -o /tmp/apache-maven-${maven_ver}-bin.zip https://apache.mirrors.tds.net/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip
   gpg --import /tmp/apache-maven-keys
-  gpg --verify /tmp/apache-maven-3.3.3-bin.zip.asc /tmp/apache-maven-3.3.3-bin.zip
-  unzip -d ~/ /tmp/apache-maven-3.3.3-bin.zip
-  rm -f /tmp/apache-maven-keys /tmp/apache-maven-3.3.3-bin.zip.asc /tmp/apache-maven-3.3.3-bin.zip
+  gpg --verify /tmp/apache-maven-${maven_ver}-bin.zip.asc /tmp/apache-maven-${maven_ver}-bin.zip
+  unzip -d ~/ /tmp/apache-maven-${maven_ver}-bin.zip
+  rm -f /tmp/apache-maven-keys /tmp/apache-maven-${maven_ver}-bin.zip.asc /tmp/apache-maven-${maven_ver}-bin.zip
 fi
 
 cd ~/bin
 for f in mvn mvnDebug mvnyjp ; do
-  ln -snf ~/apache-maven-3.3.3/bin/$f $f
+  ln -snf ~/apache-maven-${maven_ver}/bin/$f $f
 done
 
 # nodejs
