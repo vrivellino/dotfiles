@@ -28,11 +28,12 @@ for f in mvn mvnDebug mvnyjp ; do
 done
 
 # nodejs
-if [ "$(node --version 2>&1)" != 'v4.2.1' ]; then
-  curl -L -o /tmp/node-v4.2.1-linux-x64.tar.gz https://nodejs.org/dist/v4.2.1/node-v4.2.1-linux-x64.tar.gz
+node_ver='6.10.3'
+if [ "$(node --version 2>&1)" != "v${node_ver}" ]; then
+  curl -L -o /tmp/node-v${node_ver}-linux-x64.tar.gz https://nodejs.org/dist/v${node_ver}/node-v${node_ver}-linux-x64.tar.gz
   cd /usr/local
-  sudo tar --strip-components 1 --owner=root --group=root -xzf /tmp/node-v4.2.1-linux-x64.tar.gz
-  sudo rm -f /tmp/node-v4.2.1-linux-x64.tar.gz CHANGELOG.md LICENSE README.md
+  sudo tar --strip-components 1 --owner=root --group=root -xzf /tmp/node-v${node_ver}-linux-x64.tar.gz
+  sudo rm -f /tmp/node-v${node_ver}-linux-x64.tar.gz CHANGELOG.md LICENSE README.md
   sudo chown -R root:root .
 fi
 
@@ -44,7 +45,7 @@ cd ~/bin
 ln -snf ../casperjs/bin/casperjs casperjs
 
 # packer
-packer_ver='0.10.1'
+packer_ver='1.0.0'
 if [ ! -d ~/packer-${packer_ver} ]; then
   curl -o /tmp/packer.zip https://releases.hashicorp.com/packer/${packer_ver}/packer_${packer_ver}_linux_amd64.zip
   mkdir -p ~/packer-${packer_ver}
