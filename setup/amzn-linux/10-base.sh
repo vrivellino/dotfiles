@@ -15,7 +15,7 @@ maven_ver='3.5.0'
 if [ ! -d ~/apache-maven-${maven_ver} ]; then
   curl -o /tmp/apache-maven-keys https://www.apache.org/dist/maven/KEYS
   curl -o /tmp/apache-maven-${maven_ver}-bin.zip.asc https://www.apache.org/dist/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip.asc
-  curl -o /tmp/apache-maven-${maven_ver}-bin.zip https://apache.mirrors.tds.net/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip
+  curl -o /tmp/apache-maven-${maven_ver}-bin.zip http://apache.mirrors.tds.net/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip
   gpg --import /tmp/apache-maven-keys
   gpg --verify /tmp/apache-maven-${maven_ver}-bin.zip.asc /tmp/apache-maven-${maven_ver}-bin.zip
   unzip -d ~/ /tmp/apache-maven-${maven_ver}-bin.zip
