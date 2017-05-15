@@ -7,7 +7,7 @@ set -ex
 
 # install what we can from yum
 sudo yum groupinstall -y 'Development Tools'
-sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig screen tree vim-enhanced zip unzip
+sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig readline-devel screen tree vim-enhanced zip unzip
 
 # enable epel repo and install packages from it
 if [ ! -f /etc/yum.repos.d/epel.repo ]; then
