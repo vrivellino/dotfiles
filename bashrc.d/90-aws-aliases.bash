@@ -76,3 +76,34 @@ s3_signed_url() {
     local query="Expires=${ts_expires}&AWSAccessKeyId=${escapedAwsKey}&Signature=${escapedSignature}"
     echo "http://s3.amazonaws.com/${bucket}/${path}?${query}"
 }
+
+get_win_pass() {
+    local instance_id key_file win_pw rc
+    instance_id="$1"
+    key_file="$HOME/.ssh/id_rsa.windoze"
+    if [ -n "$2" ]; then
+        key_file="$2"
+    fi
+    if [ -z "$instance_id" ]; then
+        echo "Usage: get_win_pass <instance-id> [<path/to/id.rsa>]" >&2
+        return 1
+    fi
+    local desc_instance public_hostname
+    desc_instance="$(aws ec2 describe-instances --instance-ids "$instance_id" --output=text --query 'Reservations[0].Instances[0].[PublicDnsName,Platform]')"
+    rc=$?
+    test $rc -eq 0 || return $rc
+    if [[ $(echo $desc_instance | awk '{print $2}') != windows ]]; then
+        echo "Fatal: $instance_id is not running Windows" >&2
+        return 1
+    fi
+    public_hostname="$(echo $desc_instance | awk '{print $1}')"
+    win_pw=''
+    while [ -z "$win_pw" ]; do
+        win_pw="$(aws ec2 get-password-data --instance-id "$instance_id" --priv-launch-key "$key_file" --output=text --query PasswordData)"
+        rc=$?
+        test $rc -eq 0 || return $rc
+        [ -n "$win_pw" ] || sleep 5
+    done
+    echo "HOST: $public_hostname"
+    echo "PASS: $win_pw"
+}
