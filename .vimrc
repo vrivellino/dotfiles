@@ -31,6 +31,8 @@ set tabstop=4
 "set shiftwidth=2
 set expandtab
 
+" Ctrl-n to toggle nerdtree
+map <C-n> :NERDTreeToggle<CR>
 " filetype plugin on
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
@@ -150,6 +152,11 @@ if has("autocmd")
    autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
  endif
 
+ " NERDTree
+ autocmd StdinReadPre * let s:std_in=1
+ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif " has("autocmd")
 
 " Pathogen load
