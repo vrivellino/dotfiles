@@ -17,7 +17,7 @@ dev_py_virtualenv() {
     python_path="$2"
     if ! $python_path --version 2>&1 | grep -q '^Python [23][.][0-9]\+[.][0-9]\+$'; then
       echo "Fatal: $python_path --version fails" >&2
-      echo "Usage: mk_py_virtualenv <name> [/path/to/python]" >&2
+      echo "Usage: dev_py_virtualenv <name> [/path/to/python]" >&2
       return 1
     fi
   fi
