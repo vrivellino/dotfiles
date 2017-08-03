@@ -31,6 +31,10 @@ set tabstop=4
 "set shiftwidth=2
 set expandtab
 
+" Always display status line w/ filename
+set statusline+=%f
+set laststatus=2
+
 " Ctrl-n to toggle nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " filetype plugin on
