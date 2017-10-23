@@ -25,7 +25,7 @@ alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
 #alias ipycon="mkdir -p ~/.ipython/ && ipython qtconsole > ~/.ipython/con.out 2>&1 &"
 
-alias myip='curl http://icanhazip.com'
+alias myip='curl https://ucanhazip.co'
 
 # random password generator
 randpass() {
