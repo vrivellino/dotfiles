@@ -35,8 +35,7 @@ mkdir -m0755 -p ~/bin
 # go to .dotfiles root and update submodules
 cd "$(dirname $0)"
 
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 # run setup scripts for the target systems
 for script in ./setup/$target_sys/*.sh; do
