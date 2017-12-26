@@ -13,8 +13,15 @@ for d in $PATH; do
 done
 IFS="$OLDIFS"
 
-for d in /usr/local/share/npm/bin /usr/local/bin $HOME/bin $HOME/.rbenv/bin; do
+for d in /usr/local/share/npm/bin /usr/local/bin $HOME/.rbenv/bin; do
   [ -d "$d" ] && new_path="$d:$new_path"
 done
 
-export PATH="./node_modules/.bin:$new_path"
+if [ ! -d "$HOME/bin" ]; then
+  mkdir -m 0750 "$HOME/bin"
+fi
+if [[ $OSTYPE =~ darwin ]] && [ -e /usr/local/bin/mvim ]; then
+  ln -snf /usr/local/bin/mvim $HOME/bin/vim
+fi
+
+export PATH="./node_modules/.bin:$HOME/bin:$new_path"

@@ -8,7 +8,7 @@ else
   brew upgrade
 fi
 
-brew install automake bash casperjs coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config qt5 tidy-html5 tree vim
+brew install automake bash casperjs coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config qt5 tidy-html5 tree macvim
 brew install czmq libffi libyaml pyqt python
 
 # El Capitan (and presumably higher) does not ship openssl headers

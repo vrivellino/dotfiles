@@ -31,10 +31,6 @@ set tabstop=4
 "set shiftwidth=2
 set expandtab
 
-" Always display status line w/ filename
-set statusline+=%f
-set laststatus=2
-
 " Ctrl-n to toggle nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " filetype plugin on
@@ -51,6 +47,7 @@ map Q gq
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
+  let python_highlight_all=1
   syntax on
   set hlsearch
 endif
@@ -161,9 +158,6 @@ if has("autocmd")
  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
- " PymodeLint Ctrl-L
- autocmd FileType python map <C-l> :PymodeLint<CR>
 endif " has("autocmd")
 
 " Pathogen load
@@ -174,11 +168,29 @@ filetype plugin indent on
 syntax on
 
 " pymode
-let g:pymode_lint_ignore = "E501"
-let g:pymode_rope = 0
-let g:pymode_rope_lookup_project = 0
-let g:pymode_folding = 0
-let g:pymode_options_colorcolumn = 0
+"let g:pymode_lint_ignore = "E501"
+"let g:pymode_rope = 0
+"let g:pymode_rope_lookup_project = 0
+"let g:pymode_folding = 0
+"let g:pymode_options_colorcolumn = 0
+
+" airline / powerline fonts
+let g:airline_powerline_fonts = 1
+let g:airline_theme='deus'
+
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 " syntastic
 set statusline+=%#warningmsg#
@@ -190,8 +202,22 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
+let g:syntastic_mode_map = { 'mode': 'active' }
 let g:syntastic_javascript_checkers = ["jshint"]
+let g:syntastic_python_checkers = ["flake8", "pycodestyle"]
+
+let g:syntastic_toggle_flag = 0
+function! ToggleSyntasticCheck()
+    if g:syntastic_toggle_flag
+        call SyntasticCheck()
+        let g:syntastic_toggle_flag = 0
+    else
+        call SyntasticReset()
+        let g:syntastic_toggle_flag = 1
+    endif
+endfunction
+map <C-k> :call ToggleSyntasticCheck()<CR>
 
 " Find appropriate jshintrc for syntastic jshint
 function s:find_jshintrc(dir)

@@ -20,6 +20,7 @@ fi
 
 # Common aliases
 alias vi=vim
+alias mvi=mvim
 alias grep='grep --color'
 alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
