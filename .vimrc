@@ -34,6 +34,7 @@ set expandtab
 " Ctrl-n to toggle nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " filetype plugin on
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
