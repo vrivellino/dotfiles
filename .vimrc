@@ -58,9 +58,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'valloric/youcompleteme'
 Plug 'scrooloose/nerdtree'
 Plug 'xuyuanp/nerdtree-git-plugin'
-" Plug 'ervandew/supertab'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
 Plug 'jpalardy/vim-slime'
 Plug 'airblade/vim-gitgutter'
@@ -168,10 +168,6 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" airline / powerline fonts
-"let g:airline_powerline_fonts = 1
-"let g:airline_theme='deus'
-
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -186,57 +182,11 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
-let g:syntastic_mode_map = { 'mode': 'active' }
-let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_python_checkers = ['flake8', 'pycodestyle']
-let g:syntastic_python_checkers = ["flake8"]
-
-let g:syntastic_toggle_flag = 0
-function! ToggleSyntasticCheck()
-    if g:syntastic_toggle_flag
-        call SyntasticCheck()
-        let g:syntastic_toggle_flag = 0
-    else
-        call SyntasticReset()
-        let g:syntastic_toggle_flag = 1
-    endif
-endfunction
-map <C-k> :call ToggleSyntasticCheck()<CR>
-
-" Find appropriate jshintrc for syntastic jshint
-function s:find_jshintrc(dir)
-    let l:found = globpath(a:dir, '.jshintrc')
-    if filereadable(l:found)
-        return l:found
-    endif
-
-    let l:parent = fnamemodify(a:dir, ':h')
-    if l:parent != a:dir
-        return s:find_jshintrc(l:parent)
-    endif
-
-    return "~/.dotfiles/.jshintrc"
-endfunction
-
-function UpdateJsHintConf()
-    let l:dir = expand('%:p:h')
-    let l:jshintrc = s:find_jshintrc(l:dir)
-    " let g:syntastic_javascript_jshint_conf = l:jshintrc
-    let g:syntastic_javascript_jshint_args = join(['--config', l:jshintrc], ' ')
-endfunction
-
-au BufEnter * call UpdateJsHintConf()
+" lightline-ale
+let g:lightline = {}
+let g:lightline.component_expand = { 'linter_warnings': 'lightline#ale#warnings', 'linter_errors': 'lightline#ale#errors', 'linter_ok': 'lightline#ale#ok' }
+let g:lightline.component_type = { 'linter_warnings': 'warning', 'linter_errors': 'error', }
+let g:lightline.active = { 'right': [[ 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 " vim-slime
 let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
