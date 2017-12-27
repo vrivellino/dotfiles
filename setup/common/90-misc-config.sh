@@ -9,3 +9,7 @@ if [ ! -h .config/flake8 ] && [ -e .config/flake8 ]; then
 fi
 
 ln -snf ~/.dotfiles/config-flake8 .config/flake8
+
+# finish vim
+vim -c PlugInstall
+cd .vim/plugged/youcompleteme/ && python2.7 install.py
