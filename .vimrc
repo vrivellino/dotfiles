@@ -30,11 +30,9 @@ set tabstop=4
 "set softtabstop=2
 "set shiftwidth=2
 set expandtab
-
-" Ctrl-n to toggle nerdtree
-map <C-n> :NERDTreeToggle<CR>
-" filetype plugin on
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+filetype plugin indent on
+set laststatus=2
+set updatetime=250
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -53,37 +51,46 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+" https://github.com/junegunn/vim-plug/
+" VimPlug start
+call plug#begin('~/.vim/plugged')
+" Plugins
+Plug 'valloric/youcompleteme'
+Plug 'scrooloose/nerdtree'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'w0rp/ale'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'jpalardy/vim-slime'
+Plug 'airblade/vim-gitgutter'
+" Initialize plugin system
+call plug#end()
 
- autocmd FileType phtml set syntax=php expandtab tabstop=4
- autocmd FileType php,inc,apache,conf,html,json set expandtab tabstop=4 sw=4
- autocmd FileType sh set expandtab tabstop=4 sw=4
- autocmd FileType pl set noexpandtab
- autocmd BufNewFile,BufReadPost *.md set filetype=markdown
- autocmd FileType markdown set tw=110
- autocmd FileType javascript,yaml,ruby set expandtab tabstop=2 sw=2
- autocmd FileType groovy set expandtab tabstop=4 sw=4
-
- " Use JS highlighting for json
- " autocmd BufNewFile,BufRead *.json set ft=javascript
+" Some specifics based on file type ...
+autocmd FileType phtml set syntax=php expandtab tabstop=4
+autocmd FileType sh,php,inc,apache,conf,html,json,groovy set expandtab tabstop=4 sw=4
+autocmd FileType pl set noexpandtab
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd FileType markdown set tw=110
+autocmd FileType javascript,yaml,ruby set expandtab tabstop=2 sw=2
 
  " In text files, always limit the width of text to 78 characters
- autocmd BufRead *.txt set tw=78
+autocmd BufRead *.txt set tw=78
 
- augroup cprog
+augroup cprog
   " Remove all cprog autocommands
   au!
-
   " When starting to edit a file:
   "   For C and C++ files set formatting of comments and set C-indenting on.
   "   For other files switch it off.
   "   Don't change the order, it's important that the line with * comes first.
   autocmd FileType *      set formatoptions=tcql nocindent comments&
   autocmd FileType c,cpp  set formatoptions=croql nocindent comments=sr:/*,mb:*,el:*/,:// noexpandtab
- augroup END
+augroup END
 
- augroup gzip
+augroup gzip
   " Remove all gzip autocommands
   au!
 
@@ -144,40 +151,23 @@ if has("autocmd")
     call rename(expand("<afile>:r"), expand("<afile>"))
   endfun
 
- augroup END
+augroup END
 
- " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
- " back to positions in previous files more than once.
- if 0
+" This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
+" back to positions in previous files more than once.
+if 0
   " When editing a file, always jump to the last cursor position.
   " This must be after the uncompress commands.
    autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
- endif
+endif
 
- " NERDTree
- autocmd StdinReadPre * let s:std_in=1
- autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
- autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
- autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-endif " has("autocmd")
-
-" Pathogen load
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-filetype plugin indent on
-syntax on
-
-" pymode
-"let g:pymode_lint_ignore = "E501"
-"let g:pymode_rope = 0
-"let g:pymode_rope_lookup_project = 0
-"let g:pymode_folding = 0
-"let g:pymode_options_colorcolumn = 0
-
-" airline / powerline fonts
-let g:airline_powerline_fonts = 1
-let g:airline_theme='deus'
+" Ctrl-n to toggle nerdtree
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -193,57 +183,11 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['python'] }
-let g:syntastic_mode_map = { 'mode': 'active' }
-let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_python_checkers = ['flake8', 'pycodestyle']
-let g:syntastic_python_checkers = ["flake8"]
-
-let g:syntastic_toggle_flag = 0
-function! ToggleSyntasticCheck()
-    if g:syntastic_toggle_flag
-        call SyntasticCheck()
-        let g:syntastic_toggle_flag = 0
-    else
-        call SyntasticReset()
-        let g:syntastic_toggle_flag = 1
-    endif
-endfunction
-map <C-k> :call ToggleSyntasticCheck()<CR>
-
-" Find appropriate jshintrc for syntastic jshint
-function s:find_jshintrc(dir)
-    let l:found = globpath(a:dir, '.jshintrc')
-    if filereadable(l:found)
-        return l:found
-    endif
-
-    let l:parent = fnamemodify(a:dir, ':h')
-    if l:parent != a:dir
-        return s:find_jshintrc(l:parent)
-    endif
-
-    return "~/.dotfiles/.jshintrc"
-endfunction
-
-function UpdateJsHintConf()
-    let l:dir = expand('%:p:h')
-    let l:jshintrc = s:find_jshintrc(l:dir)
-    " let g:syntastic_javascript_jshint_conf = l:jshintrc
-    let g:syntastic_javascript_jshint_args = join(['--config', l:jshintrc], ' ')
-endfunction
-
-au BufEnter * call UpdateJsHintConf()
+" lightline-ale
+let g:lightline = {}
+let g:lightline.component_expand = { 'linter_warnings': 'lightline#ale#warnings', 'linter_errors': 'lightline#ale#errors', 'linter_ok': 'lightline#ale#ok' }
+let g:lightline.component_type = { 'linter_warnings': 'warning', 'linter_errors': 'error', }
+let g:lightline.active = { 'right': [[ 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 " vim-slime
 let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
