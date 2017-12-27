@@ -62,6 +62,7 @@ Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'jpalardy/vim-slime'
 Plug 'airblade/vim-gitgutter'
 " Initialize plugin system
