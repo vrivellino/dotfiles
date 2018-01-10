@@ -1,5 +1,3 @@
-" Taken from example vimrc
-
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -42,6 +40,45 @@ map Q gq
 
 " Make p in Visual mode replace the selected text with the "" register.
 "vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+" only set pythonhome, pythondll, pythonthreehome, and pythonthreedll if we're running macvim
+if has('gui_macvim')
+  if !(exists(&pythondll) && filereadable(&pythondll))
+    set pythonhome=/usr/local/Frameworks/Python.framework/Versions/2.7
+    set pythondll=/usr/local/Frameworks/Python.framework/Versions/2.7/Python
+  endif
+  if !(exists(&pythonthreedll) && filereadable(&pythonthreedll))
+    set pythonthreehome=/usr/local/Frameworks/Python.framework/Versions/3.6
+    set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/2.7/Python
+  endif
+endif
+
+if !empty($VIRTUAL_ENV)
+  if system($VIRTUAL_ENV . "/bin/python --version 2>&1")[0:strlen("Python 2.")-1] == "Python 2."
+    if exists("pythonhome")
+      set pythonhome=$VIRTUAL_ENV
+    endif
+    " not sure this is necessary if we're setting pythonhome
+    py << EOF
+import os
+import sys
+project_base_dir = os.environ['VIRTUAL_ENV']
+activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+  else
+    if exists("pythonthreehome")
+      set pythonthreehome=$VIRTUAL_ENV
+    endif
+"    py3 << EOF
+"import os
+"import sys
+"project_base_dir = os.environ['VIRTUAL_ENV']
+"activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"execfile(activate_this, dict(__file__=activate_this))
+"EOF
+  endif
+endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -173,16 +210,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 " Lightline
 let g:lightline = {
