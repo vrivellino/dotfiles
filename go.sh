@@ -9,14 +9,34 @@ case "$OSTYPE" in
     export dev_install='true'
     ;;
   linux*)
-    if grep -q amazon /etc/system-release-cpe; then
-      target_sys=amzn-linux
-    elif grep -q centos:7 /etc/system-release-cpe; then
-      target_sys=centos7
-    else
-      echo "Unsupported Linux release: $(cat /etc/system-release)" >&2
-      exit 1
-    fi
+    . /etc/os-release || exit $?
+    case "$ID" in
+      amzn)
+        target_sys=amzn-linux
+        ;;
+      centos)
+        if [[ $VERSION_ID =~ 7\. ]]; then
+          target_sys=centos7
+        else
+          echo "Unsupported version of CentOS: $VERSION" >&2
+          exit 1
+        fi
+        ;;
+      #rhel)
+      #  ;;
+      ubuntu)
+        if [[ $VERSION_ID =~ 16\. ]]; then
+          target_sys=ubuntu16
+        else
+          echo "Unsupported version of Ubuntu: $VERSION" >&2
+          exit 1
+        fi
+        ;;
+      *)
+        echo "Unsupported Linux distro: $NAME $VERSION" >&2
+        exit 1
+        ;;
+    esac
     ;;
 esac
 

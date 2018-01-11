@@ -10,15 +10,12 @@ test -n $maven_ver
 test -n $node_ver
 test -n $packer_ver
 
-# install what we can from yum
-sudo yum groupinstall -y 'Development Tools'
-sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig readline-devel screen tree vim-enhanced zip unzip
+pkglist='gnupg2 openjdk-8-jdk python2.7 python3 python-pip python3-pip libreadline-dev tree vim.nox vim-nox-py2 zip unzip'
+pkglist2='gcc make autoconf automake binutils bison flex pkg-config tidy cmake libczmq-dev libffi-dev libyaml-dev libssl-dev python-pygments python3-pygments python-virtualenv python3-virtualenv'
 
-# enable epel repo and install packages from it
-if [ ! -f /etc/yum.repos.d/epel.repo ]; then
-  sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-fi
-sudo yum install -y tidy czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python-pip python-pygments python-virtualenv
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y $pkglist $pkglist2
 
 # maven
 if [ ! -d ~/apache-maven-${maven_ver} ]; then
