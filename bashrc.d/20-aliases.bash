@@ -41,3 +41,14 @@ randpass() {
     < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-16};echo;
     export LC_ALL="$lc_all_old"
 }
+
+# wrapper for vim on ubuntu
+if [[ $OSTYPE =~ ^linux ]] && [ -f /etc/os-release ] && grep -q -F 'Ubuntu 16.' /etc/os-release; then
+    vim() {
+        if [[ $(python --version 2>&1) =~ ^Python\ 2\. ]]; then
+            vim.nox-py2 "$@"
+        else
+            vim.nox "$@"
+        fi
+    }
+fi
