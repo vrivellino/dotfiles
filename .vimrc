@@ -98,23 +98,27 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" https://github.com/junegunn/vim-plug/
-" VimPlug start
-call plug#begin('~/.vim/plugged')
-" Plugins
-Plug 'valloric/youcompleteme'
-Plug 'scrooloose/nerdtree'
-Plug 'xuyuanp/nerdtree-git-plugin'
-Plug 'w0rp/ale'
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'jpalardy/vim-slime'
-Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
-" Initialize plugin system
-call plug#end()
+if exists("*plug#begin")
+  " https://github.com/junegunn/vim-plug/
+  " VimPlug start
+  call plug#begin('~/.vim/plugged')
+  " Plugins
+  if v:version > 704 || (v:version == 704 && has( 'patch1578' ))
+    Plug 'valloric/youcompleteme'
+  endif
+  Plug 'scrooloose/nerdtree'
+  Plug 'xuyuanp/nerdtree-git-plugin'
+  Plug 'w0rp/ale'
+  Plug 'itchyny/lightline.vim'
+  Plug 'maximbaz/lightline-ale'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'jpalardy/vim-slime'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'sheerun/vim-polyglot'
+  " Initialize plugin system
+  call plug#end()
+endif
 
 " Softtab of 4 spaces is default for me...
 set tabstop=4
@@ -136,13 +140,15 @@ autocmd FileType vim set expandtab tabstop=2 sw=2
  " In text files, always limit the width of text to 78 characters
 autocmd BufRead *.txt set tw=78
 
-" Ctrl-n to toggle nerdtree
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+if exists("b:NERDTree")
+  " Ctrl-n to toggle nerdtree
+  map <C-n> :NERDTreeToggle<CR>
+  let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+endif
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
