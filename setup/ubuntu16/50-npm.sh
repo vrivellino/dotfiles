@@ -4,10 +4,10 @@ set -ex
 # only install npm if we're setting up a dev environment
 [ "$dev_install" = 'true' ] || exit 0
 
-sudo npm install -g gulp
-sudo npm install -g jslint
-sudo npm install -g jsonlint
-sudo npm install -g jshint
+sudo /usr/local/bin/npm install -g gulp
+sudo /usr/local/bin/npm install -g jslint
+sudo /usr/local/bin/npm install -g jsonlint
+sudo /usr/local/bin/npm install -g jshint
 
 cd
 
