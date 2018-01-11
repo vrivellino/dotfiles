@@ -3,9 +3,11 @@ export GIT_EDITOR=vim
 # enable git command completion
 if [[ $OSTYPE =~ ^darwin ]]; then
   source /usr/local/etc/bash_completion.d/git-completion.bash
-elif [[ $OSTYPE =~ ^linux ]] && [ -e /etc/system-release ] && grep -q 'Amazon Linux' /etc/system-release; then
-  git_bash_completion_sh="/usr/share/doc/git-$(rpm -q --queryformat '%{VERSION}' git 2>/dev/null)/contrib/completion/git-completion.bash"
-  [ -f "$git_bash_completion_sh" ] && source "$git_bash_completion_sh"
+elif [[ $OSTYPE =~ ^linux ]]; then
+  if grep -q '\(Amazon Linux AMI\|CentOS Linux 7\)' /etc/os-release; then
+    git_bash_completion_sh="/usr/share/doc/git-$(rpm -q --queryformat '%{VERSION}' git 2>/dev/null)/contrib/completion/git-completion.bash"
+    [ -f "$git_bash_completion_sh" ] && source "$git_bash_completion_sh"
+  fi
 fi
 
 # setup command prompt
