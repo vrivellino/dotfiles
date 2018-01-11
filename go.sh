@@ -15,7 +15,7 @@ case "$OSTYPE" in
         target_sys=amzn-linux
         ;;
       centos)
-        if [[ $VERSION_ID =~ 7\. ]]; then
+        if [[ $VERSION_ID == 7 ]]; then
           target_sys=centos7
         else
           echo "Unsupported version of CentOS: $VERSION" >&2

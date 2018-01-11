@@ -10,6 +10,8 @@ test -n $maven_ver
 test -n $node_ver
 test -n $packer_ver
 
+sudo yum upgrade -y
+
 # install what we can from yum
 sudo yum groupinstall -y 'Development Tools'
 sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig readline-devel screen tree vim-enhanced zip unzip
@@ -18,7 +20,7 @@ sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig readline-devel screen tre
 if [ ! -f /etc/yum.repos.d/epel.repo ]; then
   sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 fi
-sudo yum install -y tidy czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python-pip python-pygments python-virtualenv
+sudo yum install -y tidy cmake czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python-pip python-pygments python-virtualenv
 
 # maven
 if [ ! -d ~/apache-maven-${maven_ver} ]; then
