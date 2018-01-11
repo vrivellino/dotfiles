@@ -130,7 +130,7 @@ filetype plugin indent on
 
 " Some specifics based on file type ...
 autocmd FileType phtml set syntax=php expandtab tabstop=4
-autocmd FileType sh,php,inc,apache,conf,html,json,groovy set expandtab tabstop=4 sw=4
+autocmd FileType sh,php,inc,apache,conf,html,json,groovy,python set expandtab tabstop=4 sw=4
 autocmd FileType pl set noexpandtab
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd FileType markdown set tw=110
