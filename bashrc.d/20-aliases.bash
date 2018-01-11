@@ -20,7 +20,6 @@ fi
 
 # Common aliases
 alias vi=vim
-alias mvi=mvim
 alias grep='grep --color'
 alias zgrep='zgrep --color'
 alias fgrep='fgrep --color'
@@ -51,4 +50,7 @@ if [[ $OSTYPE =~ ^linux ]] && [ -f /etc/os-release ] && grep -q -F 'Ubuntu 16.' 
             vim.nox "$@"
         fi
     }
+# make sure we're using homebrew'd macvim on OSX
+elif [[ $OSTYPE =~ ^darwin ]]; then
+    alias vim=/usr/local/bin/vim
 fi
