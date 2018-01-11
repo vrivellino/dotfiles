@@ -5,6 +5,11 @@
 
 set -ex
 
+. "$(dirname "$0")/../versions"
+test -n $maven_ver
+test -n $node_ver
+test -n $packer_ver
+
 # install what we can from yum
 sudo yum groupinstall -y 'Development Tools'
 sudo yum install -y gnupg java-1.8.0-openjdk pkgconfig readline-devel screen tree vim-enhanced zip unzip
@@ -16,7 +21,6 @@ fi
 sudo yum install -y tidy czmq czmq-devel libffi libffi-devel libyaml libyaml-devel openssl-devel python-pip python-pygments python-virtualenv
 
 # maven
-maven_ver='3.5.0'
 if [ ! -d ~/apache-maven-${maven_ver} ]; then
   curl -o /tmp/apache-maven-keys https://www.apache.org/dist/maven/KEYS
   curl -o /tmp/apache-maven-${maven_ver}-bin.zip.asc https://www.apache.org/dist/maven/maven-3/${maven_ver}/binaries/apache-maven-${maven_ver}-bin.zip.asc
@@ -33,7 +37,6 @@ for f in mvn mvnDebug mvnyjp ; do
 done
 
 # nodejs
-node_ver='6.10.3'
 if [ "$(node --version 2>&1)" != "v${node_ver}" ]; then
   curl -L -o /tmp/node-v${node_ver}-linux-x64.tar.gz https://nodejs.org/dist/v${node_ver}/node-v${node_ver}-linux-x64.tar.gz
   cd /usr/local
@@ -42,15 +45,7 @@ if [ "$(node --version 2>&1)" != "v${node_ver}" ]; then
   sudo chown -R root:root .
 fi
 
-# casper js
-if [ ! -d ~/casperjs ]; then
-  git clone git://github.com/n1k0/casperjs.git ~/casperjs
-fi
-cd ~/bin
-ln -snf ../casperjs/bin/casperjs casperjs
-
 # packer
-packer_ver='1.0.0'
 if [ ! -d ~/packer-${packer_ver} ]; then
   curl -o /tmp/packer.zip https://releases.hashicorp.com/packer/${packer_ver}/packer_${packer_ver}_linux_amd64.zip
   mkdir -p ~/packer-${packer_ver}
