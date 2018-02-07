@@ -1,8 +1,12 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-set background=dark
-" colorscheme evening
+if has("gui_running")
+  set background=light
+else
+  set background=dark
+  " colorscheme evening
+endif
 
 " TERM should be xterm-256color for this to work
 set t_Co=256
@@ -98,7 +102,7 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-if exists("*plug#begin")
+if filereadable(expand("~/.vim/autoload/plug.vim"))
   " https://github.com/junegunn/vim-plug/
   " VimPlug start
   call plug#begin('~/.vim/plugged')

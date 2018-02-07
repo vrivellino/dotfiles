@@ -11,5 +11,10 @@ fi
 ln -snf ~/.dotfiles/config-flake8 .config/flake8
 
 # finish vim
-vim -c PlugInstall
+if [[ $OSTYPE =~ darwin ]]; then
+    mvim -c PlugInstall
+else
+    vim -c PlugInstall
+fi
+
 cd .vim/plugged/youcompleteme/ && python2.7 install.py
