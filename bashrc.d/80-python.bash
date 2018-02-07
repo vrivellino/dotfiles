@@ -24,15 +24,18 @@ get_python_dir() {
 
 create_virtualenv() {
   name="$1"
+  python_cmd=${2:-python2.7}
   if [ -z "$name" ]; then
     echo "Usage: create_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
 
-  python_path=$(which python2.7)
-  if [ -n "$2" ]; then
-    python_path="$2"
+  if [[ $(basename "$python_cmd") == $python_cmd ]]; then
+      python_path=$(which "$python_cmd")
+  else
+      python_path=$python_cmd
   fi
+
   python_version_str=$($python_path --version 2>&1)
   if ! [[ $python_version_str =~ ^Python\ [23][.][0-9]+[.][0-9]+$ ]]; then
     echo "Fatal: $python_path --version fails [$python_version_str]" >&2
@@ -67,7 +70,7 @@ dev_py_virtualenv() {
     echo "Usage: dev_py_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
-  create_virtualenv "$name" || return $?
+  create_virtualenv "$@" || return $?
 
   # only install ipython terminal on Linux
   if [ "$(uname -s)" = 'Darwin' ]; then
@@ -89,7 +92,7 @@ aws_py_virtualenv() {
     echo "Usage: aws_py_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
-  create_virtualenv "$name" || return $?
+  create_virtualenv "$@" || return $?
   . ".$name/bin/activate" && \
     pip install --upgrade pip && \
     pip install --upgrade awscli && \
