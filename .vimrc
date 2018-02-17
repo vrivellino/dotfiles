@@ -144,7 +144,7 @@ autocmd FileType vim set expandtab tabstop=2 sw=2
  " In text files, always limit the width of text to 78 characters
 autocmd BufRead *.txt set tw=78
 
-if exists("b:NERDTree")
+if filereadable(expand("~/.vim/plugged/nerdtree/autoload/nerdtree.vim"))
   " Ctrl-n to toggle nerdtree
   map <C-n> :NERDTreeToggle<CR>
   let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
