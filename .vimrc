@@ -1,12 +1,6 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-if has("gui_running")
-  set background=light
-else
-  set background=dark
-  " colorscheme evening
-endif
 
 " TERM should be xterm-256color for this to work
 set t_Co=256
@@ -48,6 +42,27 @@ set modelines=5
 set laststatus=2
 " milliseconds Vim waits after you stop typing before it triggers plugins
 set updatetime=250
+
+" set terminal title
+set title
+
+" completion
+set wildmode=full
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*.pyc
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+" scrolling
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -120,8 +135,23 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'jpalardy/vim-slime'
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
+  Plug 'altercation/vim-colors-solarized'
   " Initialize plugin system
   call plug#end()
+endif
+
+if has("gui_running")
+  set background=light
+  if filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
+    colorscheme solarized
+  endif
+  set gfn=Monaco:h12
+else
+  set background=dark
+  "if filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
+  "  let g:solarized_termcolors=256
+  "  colorscheme solarized
+  "endif
 endif
 
 " Softtab of 4 spaces is default for me...
