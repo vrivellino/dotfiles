@@ -9,7 +9,7 @@ else
 fi
 
 brew install automake bash coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config qt5 tidy-html5 tree
-brew install czmq libffi libyaml pyenv pyqt python python3
+brew install czmq libffi libyaml pyenv pyqt python python@2
 brew tap macvim-dev/macvim
 brew install --HEAD macvim-dev/macvim/macvim --with-properly-linked-python2-python3
 
