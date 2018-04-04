@@ -1,5 +1,6 @@
 # Mac-specifics
-if [ "$(uname -s)" = 'Darwin' ]; then
+if [[ $OSTYPE =~ ^darwin ]]; then
+  export GPG_TTY=$(tty)
   CLICOLOR=1
   LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
   export CLICOLOR LSCOLORS
@@ -14,7 +15,7 @@ if [ "$(uname -s)" = 'Darwin' ]; then
   [ -z "$gnugetopt_path" ] || export GNU_GETOPT="$gnugetopt_path"
 
 # Linux-specifics
-elif [ "$(uname -s)" = 'Linux' ]; then
+elif [[ $OSTYPE =~ ^linux ]]; then
   alias ls='LC_ALL=POSIX ls --color=auto -F -T 0 -b -a'
 fi
 
