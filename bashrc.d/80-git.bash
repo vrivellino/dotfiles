@@ -53,7 +53,7 @@ git_config_update_localrepo() {
     git config user.email "$(cat ../.git-email)"
   fi
   if [ -s ../.git-signing-key ]; then
-    git config user.signingkey "$(cat ../.git-signing-key)"
+    git config user.signingKey "$(cat ../.git-signing-key)"
   fi
   if [ -s ../.git-username ]; then
     git config user.name "$(cat ../.git-username)"
