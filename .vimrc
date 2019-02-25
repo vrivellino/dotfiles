@@ -74,8 +74,8 @@ if has('gui_macvim')
     set pythondll=/usr/local/Frameworks/Python.framework/Versions/2.7/Python
   endif
   if !(exists(&pythonthreedll) && filereadable(&pythonthreedll))
-    set pythonthreehome=/usr/local/Frameworks/Python.framework/Versions/3.6
-    set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/2.7/Python
+    set pythonthreehome=/usr/local/Frameworks/Python.framework/Versions/3.7
+    set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/3.7/Python
   endif
 endif
 
