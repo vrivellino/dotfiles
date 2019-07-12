@@ -79,8 +79,11 @@ if has('gui_macvim')
   endif
 endif
 
+let b:enable_ycm = 1
 if !empty($VIRTUAL_ENV)
   if system($VIRTUAL_ENV . "/bin/python --version 2>&1")[0:strlen("Python 2.")-1] == "Python 2."
+    " disable YCM in python 2.7 virtualenv (vim segfaults with it enabled)
+    let b:enable_ycm = 0
     if exists("pythonhome")
       set pythonhome=$VIRTUAL_ENV
     endif
@@ -122,7 +125,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " VimPlug start
   call plug#begin('~/.vim/plugged')
   " Plugins
-  if v:version > 704 || (v:version == 704 && has( 'patch1578' ))
+  if b:enable_ycm && (v:version > 704 || (v:version == 704 && has( 'patch1578' )))
     Plug 'valloric/youcompleteme'
   endif
   Plug 'scrooloose/nerdtree'
