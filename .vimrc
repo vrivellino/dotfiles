@@ -125,8 +125,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   if v:version > 704 || (v:version == 704 && has( 'patch1578' ))
     Plug 'valloric/youcompleteme'
   endif
-  "Plug 'scrooloose/nerdtree'
-  "Plug 'xuyuanp/nerdtree-git-plugin'
+  Plug 'scrooloose/nerdtree'
+  Plug 'xuyuanp/nerdtree-git-plugin'
   Plug 'w0rp/ale'
   Plug 'itchyny/lightline.vim'
   Plug 'maximbaz/lightline-ale'
