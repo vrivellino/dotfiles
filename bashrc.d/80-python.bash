@@ -24,7 +24,7 @@ get_python_dir() {
 
 create_virtualenv() {
   name="$1"
-  python_cmd=${2:-python2.7}
+  python_cmd=${2:-python3.7}
   if [ -z "$name" ]; then
     echo "Usage: create_virtualenv <name> [/path/to/python]" >&2
     return 1
