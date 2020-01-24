@@ -79,11 +79,10 @@ if has('gui_macvim')
   endif
 endif
 
-let b:enable_ycm = 1
+" disable YCM by default - i build it for python 3.7
+let b:enable_ycm = 0
 if !empty($VIRTUAL_ENV)
   if system($VIRTUAL_ENV . "/bin/python --version 2>&1")[0:strlen("Python 2.")-1] == "Python 2."
-    " disable YCM in python 2.7 virtualenv (vim segfaults with it enabled)
-    let b:enable_ycm = 0
     if exists("pythonhome")
       set pythonhome=$VIRTUAL_ENV
     endif
@@ -97,6 +96,8 @@ execfile(activate_this, dict(__file__=activate_this))
 EOF
     endif
   else
+    " enable YCM when we're python 3
+    let b:enable_ycm = 1
     if exists("pythonthreehome")
       set pythonthreehome=$VIRTUAL_ENV
     endif
