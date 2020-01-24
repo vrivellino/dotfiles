@@ -8,8 +8,8 @@ else
   brew upgrade
 fi
 
-brew install automake bash coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config qt5 tidy-html5 tree
-brew install cmake czmq libffi libyaml openssl@1.1 pyenv pyqt python python@2
+brew install automake bash coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config tidy-html5 tree
+brew install cmake czmq libffi libyaml openssl@1.1 pyenv python python@2
 brew tap macvim-dev/macvim
 brew install --HEAD macvim-dev/macvim/macvim --with-properly-linked-python2-python3
 
