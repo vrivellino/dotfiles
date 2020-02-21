@@ -15,5 +15,5 @@ fi
 git config --global color.ui auto
 git config --global core.editor vim
 git config --global core.excludesfile ~/.dotfiles/.gitignore_global
-git config --global push.default simple
+git config --global push.default upstream
 git config --global log.decorate short
