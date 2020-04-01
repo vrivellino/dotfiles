@@ -7,8 +7,12 @@ watch_elb_health() {
 
 # clear current AWS environment variables set via .bashrc_aws
 aws_clear() {
-    unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_DEFAULT_REGION AWS_DEFAULT_OUTPUT AWS_PROFILE AWS_CA_BUNDLE AWS_SHARED_CREDENTIALS_FILE AWS_CONFIG_FILE
-    unset AWS_SSH_KEY_ID EC2_PRIVATE_KEY EC2_CERT
+    for envvar in $(printenv | cut -f 1 -d =); do
+        if [[ $envvar =~ ^AWS_ ]]; then
+            unset $envvar
+        fi
+    done
+    unset EC2_PRIVATE_KEY EC2_CERT
     export GIT_PS1_PRE='\[\033[01;32m\]\u\[\033[01;34m\]@\h\[\033[00m\] \w'
 }
 
