@@ -26,4 +26,4 @@ else
     vim -c PlugInstall
 fi
 
-cd .vim/plugged/youcompleteme/ && python2.7 install.py
+cd .vim/plugged/youcompleteme/ && /usr/local/opt/python@3.7/bin/python3.7 install.py

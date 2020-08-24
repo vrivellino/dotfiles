@@ -24,7 +24,7 @@ get_python_dir() {
 
 create_virtualenv() {
   name="$1"
-  python_cmd=${2:-python3.7}
+  python_cmd=${2:-/usr/local/opt/python@3.7/bin/python3.7}
   if [ -z "$name" ]; then
     echo "Usage: create_virtualenv <name> [/path/to/python]" >&2
     return 1
@@ -81,7 +81,7 @@ dev_py_virtualenv() {
 
   . ".$name/bin/activate" && \
     pip install --upgrade pip && \
-    pip install --upgrade flake8 boto3 awscli aws-sam-cli cfn-lint pyOpenSSL grip gnureadline yamllint && \
+    pip install --upgrade flake8 boto3 awscli aws-sam-cli cfn-lint pyOpenSSL grip gnureadline yamllint onelogin-aws-assume-role && \
     pip install --upgrade "ipython[$ipy_install_type]" && \
       deactivate
 }
