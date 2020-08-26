@@ -23,13 +23,16 @@ get_python_dir() {
 }
 
 create_virtualenv() {
-  name="$1"
-  python_cmd=${2:-/usr/local/opt/python@3.7/bin/python3.7}
-  if [ -z "$name" ]; then
+  if [[ -z $1 ]]; then
     echo "Usage: create_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
-
+  if [[ ${1:0:1} == '.' ]]; then
+    name="$1"
+  else
+    name=".$1"
+  fi
+  python_cmd=${2:-/usr/local/opt/python@3.7/bin/python3.7}
   if [[ $(basename "$python_cmd") == $python_cmd ]]; then
       python_path=$(which "$python_cmd")
   else
@@ -51,26 +54,26 @@ create_virtualenv() {
     python_home=$(get_python_dir "$(which $python_path)")
   fi
 
-  virtualenv --system-site-packages -p "$python_path" ".$name"
+  virtualenv -p "$python_path" "$name"
 
-  if [ -n "$python_home" ] && [[ $OSTYPE =~ ^darwin ]]; then
-    pushd ".$name/lib" > /dev/null
-    if [[ $python_version =~ ^2\. ]]; then
-      ln -snf "$python_home/lib/libpython$python_version.dylib" libpython$python_version.dylib
-    else
-      ln -snf "$python_home/lib/libpython${python_version}m.dylib" libpython${python_version}m.dylib
-    fi
+  if [ -n "$python_home" ]; then
+    pushd "$name" > /dev/null
+    ln -snf "$python_home" PythonHome
     popd > /dev/null
   fi
 }
 
 dev_py_virtualenv() {
-  name="$1"
-  if [ -z "$name" ]; then
+  if [[ -z $1 ]]; then
     echo "Usage: dev_py_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
   create_virtualenv "$@" || return $?
+  if [[ ${1:0:1} == '.' ]]; then
+    name="$1"
+  else
+    name=".$1"
+  fi
 
   # only install ipython terminal on Linux
   if [ "$(uname -s)" = 'Darwin' ]; then
@@ -79,7 +82,7 @@ dev_py_virtualenv() {
     ipy_install_type='terminal'
   fi
 
-  . ".$name/bin/activate" && \
+  . "$name/bin/activate" && \
     pip install --upgrade pip && \
     pip install --upgrade flake8 boto3 awscli aws-sam-cli cfn-lint pyOpenSSL grip gnureadline yamllint onelogin-aws-assume-role && \
     pip install --upgrade "ipython[$ipy_install_type]" && \
@@ -87,13 +90,17 @@ dev_py_virtualenv() {
 }
 
 aws_py_virtualenv() {
-  name="$1"
-  if [ -z "$name" ]; then
+  if [[ -z $1 ]]; then
     echo "Usage: aws_py_virtualenv <name> [/path/to/python]" >&2
     return 1
   fi
   create_virtualenv "$@" || return $?
-  . ".$name/bin/activate" && \
+  if [[ ${1:0:1} == '.' ]]; then
+    name="$1"
+  else
+    name=".$1"
+  fi
+  . "$name/bin/activate" && \
     pip install --upgrade pip && \
     pip install --upgrade awscli && \
       deactivate
