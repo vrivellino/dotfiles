@@ -1,25 +1,5 @@
 export GIT_EDITOR=vim
 
-# enable git command completion
-if [[ $OSTYPE =~ ^darwin ]]; then
-  source /usr/local/etc/bash_completion.d/git-completion.bash
-elif [[ $OSTYPE =~ ^linux ]]; then
-  if grep -q '\(Amazon Linux AMI\|CentOS Linux 7\)' /etc/os-release; then
-    git_bash_completion_sh="/usr/share/doc/git-$(rpm -q --queryformat '%{VERSION}' git 2>/dev/null)/contrib/completion/git-completion.bash"
-    [ -f "$git_bash_completion_sh" ] && source "$git_bash_completion_sh"
-  fi
-fi
-
-# setup command prompt
-git_bash_prompt_sh=''
-for d in /usr/local/etc/bash_completion.d /usr/share/git-core/contrib/completion ; do
-  if [ -f "$d/git-prompt.sh" ]; then
-    git_bash_prompt_sh="$d/git-prompt.sh"
-    break
-  fi
-done
-
-test -z "$git_bash_prompt_sh" || source "$git_bash_prompt_sh"
 if type -t __git_ps1 > /dev/null; then
   # PRE and POST vars make prompt look like this:
   # <GIT_PS1_PRE> <GIT-PROMPT> <GIT_PS1_POST>
