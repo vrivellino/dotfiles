@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
+# disable for now
+exit 0
+
 # only install leiningen if we're setting up a dev environment
 [ "$dev_install" = 'true' ] || exit 0
 
