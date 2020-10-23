@@ -8,59 +8,60 @@ set t_Co=256
 " colorscheme lucius
 " LuciusBlack
 
-" disable YCM by default - i build it for python 3.7
-let b:enable_ycm = 0
+" enable YCM by default - i build it for python 3.8
+let b:enable_ycm = 1
 
-" only set pythonhome, pythondll, pythonthreehome, and pythonthreedll if we're running macvim
-if has('gui_macvim')
-  if empty($VIRTUAL_ENV)
-    " Default to python 3.8 installed via homebrew
-    set pythonthreehome=/usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8
-    set pythonthreedll=/usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8/Python
-    let python_ver='3.8'
-  else
-    if filereadable($VIRTUAL_ENV . '/bin/python2.7')
-      set pythonhome=$VIRTUAL_ENV
-      let &pythondll=$VIRTUAL_ENV . '/PythonHome/Python'
-      let python_ver='2.7'
-    endif
-    if filereadable($VIRTUAL_ENV . '/bin/python3')
-      set pythonthreehome=$VIRTUAL_ENV
-      let &pythonthreedll=$VIRTUAL_ENV . '/PythonHome/Python'
-      let python_minor_ver=split(split(system('python3 --version 2>&1'))[1], '\.')[1]
-      let python_ver='3.' . python_minor_ver
-    endif
-    " set PYTHONPATH because sys.path isn't getting setup right
-    let env_python_path = $VIRTUAL_ENV.'/PythonHome/lib/python' . python_ver . ':' . $VIRTUAL_ENV . '/PythonHome/lib/python' . 'python_ver' . '3.7/lib-dynload'
-    if empty($PYTHONPATH)
-      let $PYTHONPATH = env_python_path
-    else
-      let $PYTHONPATH .= env_python_path
-    endif
-    " activate virtualenv
-    if python_ver == '2.7'
-      py << EOF
-import os
-import sys
-project_base_dir = os.environ['VIRTUAL_ENV']
-activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-    else
-      py3 << EOF
-import os
-import sys
-project_base_dir = os.environ['VIRTUAL_ENV']
-activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-exec(open(activate_this).read(), dict(__file__=activate_this))
-EOF
-    endif
-  endif
-  if python_ver == '3.7'
-    " enable YCM when we're python 3.7
-    let b:enable_ycm = 1
-  endif
-endif
+"" only set pythonhome, pythondll, pythonthreehome, and pythonthreedll if we're running macvim
+"if has('gui_macvim')
+"  if empty($VIRTUAL_ENV)
+"    " Default to python 3.8 installed via homebrew
+"    set pythonthreehome=/usr/local/Cellar/python@3.8/3.8.6/Frameworks/Python.framework/Versions/3.8
+"    set pythonthreedll=/usr/local/Cellar/python@3.8/3.8.6/Frameworks/Python.framework/Versions/3.8/Python
+"    let python_ver='3.8'
+"  else
+"    if filereadable($VIRTUAL_ENV . '/bin/python2.7')
+"      set pythonhome=$VIRTUAL_ENV
+"      let &pythondll=$VIRTUAL_ENV . '/PythonHome/Python'
+"      let python_ver='2.7'
+"      let b:enable_ycm = 0
+"    endif
+"    if filereadable($VIRTUAL_ENV . '/bin/python3')
+"      set pythonthreehome=$VIRTUAL_ENV
+"      let &pythonthreedll=$VIRTUAL_ENV . '/PythonHome/Python'
+"      let python_minor_ver=split(split(system('python3 --version 2>&1'))[1], '\.')[1]
+"      let python_ver='3.' . python_minor_ver
+"    endif
+"    " set PYTHONPATH because sys.path isn't getting setup right
+"    let env_python_path = $VIRTUAL_ENV.'/PythonHome/lib/python' . python_ver . ':' . $VIRTUAL_ENV . '/PythonHome/lib/python' . 'python_ver' . '3.8/lib-dynload'
+"    if empty($PYTHONPATH)
+"      let $PYTHONPATH = env_python_path
+"    else
+"      let $PYTHONPATH .= env_python_path
+"    endif
+"    " activate virtualenv
+"    if python_ver == '2.7'
+"      py << EOF
+"import os
+"import sys
+"project_base_dir = os.environ['VIRTUAL_ENV']
+"activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"execfile(activate_this, dict(__file__=activate_this))
+"EOF
+"    else
+"      py3 << EOF
+"import os
+"import sys
+"project_base_dir = os.environ['VIRTUAL_ENV']
+"activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"exec(open(activate_this).read(), dict(__file__=activate_this))
+"EOF
+"    endif
+"  endif
+"  if python_ver == '3.7'
+"    " disable YCM when we're python 3.7
+"    let b:enable_ycm = 0
+"  endif
+"endif
 
 " allow backspacing over everything in insert mode
 set bs=2
