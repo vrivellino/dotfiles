@@ -9,8 +9,8 @@ else
 fi
 
 brew install automake bash coreutils git gnu-getopt gnu-sed gnu-tar gpg maven node packer pkg-config tidy-html5 tree
-brew install cmake czmq libffi libyaml python@3.8 cfn-lint flake8 yamllint
-brew install -s macvim
+brew install cmake czmq libffi libyaml python@3.8 cfn-lint flake8 yamllint macvim
+brew install vault docker
 
 ## Commenting out due to Homebrew warning
 ## El Capitan (and presumably higher) does not ship openssl headers
