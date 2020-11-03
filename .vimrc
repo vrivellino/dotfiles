@@ -8,9 +8,6 @@ set t_Co=256
 " colorscheme lucius
 " LuciusBlack
 
-" enable YCM by default - i build it for python 3.8
-let b:enable_ycm = 1
-
 "" only set pythonhome, pythondll, pythonthreehome, and pythonthreedll if we're running macvim
 "if has('gui_macvim')
 "  if empty($VIRTUAL_ENV)
@@ -23,7 +20,6 @@ let b:enable_ycm = 1
 "      set pythonhome=$VIRTUAL_ENV
 "      let &pythondll=$VIRTUAL_ENV . '/PythonHome/Python'
 "      let python_ver='2.7'
-"      let b:enable_ycm = 0
 "    endif
 "    if filereadable($VIRTUAL_ENV . '/bin/python3')
 "      set pythonthreehome=$VIRTUAL_ENV
@@ -58,8 +54,6 @@ let b:enable_ycm = 1
 "    endif
 "  endif
 "  if python_ver == '3.7'
-"    " disable YCM when we're python 3.7
-"    let b:enable_ycm = 0
 "  endif
 "endif
 
@@ -135,9 +129,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " VimPlug start
   call plug#begin('~/.vim/plugged')
   " Plugins
-  if b:enable_ycm && (v:version > 704 || (v:version == 704 && has( 'patch1578' )))
-    Plug 'valloric/youcompleteme'
-  endif
+  Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree'
   Plug 'xuyuanp/nerdtree-git-plugin'
   Plug 'w0rp/ale'
@@ -196,10 +188,6 @@ if filereadable(expand("~/.vim/plugged/nerdtree/autoload/nerdtree.vim"))
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif
-
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Lightline
 let g:lightline = {
