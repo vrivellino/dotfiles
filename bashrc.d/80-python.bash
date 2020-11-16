@@ -32,7 +32,7 @@ create_virtualenv() {
   else
     name=".$1"
   fi
-  python_cmd=${2:-/usr/local/opt/python@3.7/bin/python3.7}
+  python_cmd=${2:-python3}
   if [[ $(basename "$python_cmd") == $python_cmd ]]; then
       python_path=$(which "$python_cmd")
   else

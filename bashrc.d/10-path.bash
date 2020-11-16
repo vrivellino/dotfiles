@@ -22,6 +22,11 @@ if [ ! -d "$HOME/bin" ]; then
 fi
 if [[ $OSTYPE =~ darwin ]] && [ -e /usr/local/bin/mvim ]; then
   ln -snf /usr/local/bin/mvim $HOME/bin/vim
+  for pydir in ~/Library/Python/* ; do
+      if [[ -d $pydir/bin ]]; then
+          new_path="${new_path}:$pydir/bin"
+      fi
+  done
 fi
 
 export PATH="./node_modules/.bin:$HOME/bin:$new_path"
