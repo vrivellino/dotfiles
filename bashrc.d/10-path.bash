@@ -13,9 +13,15 @@ for d in $PATH; do
 done
 IFS="$OLDIFS"
 
-for d in /usr/local/share/npm/bin /usr/local/bin $HOME/.rbenv/bin; do
+for d in /usr/local/share/npm/bin /usr/local/bin "$HOME/.rbenv/bin" "$HOME/.npm-packages/bin"; do
   [ -d "$d" ] && new_path="$d:$new_path"
 done
+
+if [ -d "$HOME/.npm-packages/share/man" ]; then
+  # Preserve MANPATH if you already defined it somewhere in your config.
+  # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+  export MANPATH="${MANPATH-$(manpath)}:$HOME/.npm-packages/share/man"
+fi
 
 if [ ! -d "$HOME/bin" ]; then
   mkdir -m 0750 "$HOME/bin"

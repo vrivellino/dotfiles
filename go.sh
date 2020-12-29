@@ -32,6 +32,14 @@ case "$OSTYPE" in
           exit 1
         fi
         ;;
+      debian)
+        if [[ $VERSION_ID == 10 ]]; then
+          target_sys=debian10
+        else
+          echo "Unsupported version of Debian: $VERSION" >&2
+          exit 1
+        fi
+        ;;
       *)
         echo "Unsupported Linux distro: $NAME $VERSION" >&2
         exit 1
