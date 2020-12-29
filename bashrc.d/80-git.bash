@@ -1,6 +1,6 @@
 export GIT_EDITOR=vim
 
-if type -t __git_ps1 > /dev/null; then
+if [[ $CLOUD_SHELL != true ]] && type -t __git_ps1 > /dev/null; then
   # PRE and POST vars make prompt look like this:
   # <GIT_PS1_PRE> <GIT-PROMPT> <GIT_PS1_POST>
   export GIT_PS1_PRE='\[\033[01;32m\]\u\[\033[01;34m\]@\h\[\033[00m\] \w'
