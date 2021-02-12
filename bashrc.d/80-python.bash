@@ -84,7 +84,7 @@ dev_py_virtualenv() {
 
   . "$name/bin/activate" && \
     pip install --upgrade pip && \
-    pip install --upgrade flake8 boto3 awscli aws-sam-cli cfn-lint pyOpenSSL grip gnureadline yamllint onelogin-aws-assume-role && \
+    pip install --upgrade flake8 boto3 awscli cfn-lint pyOpenSSL grip gnureadline yamllint elasticsearch && \
     pip install --upgrade "ipython[$ipy_install_type]" && \
       deactivate
 }
