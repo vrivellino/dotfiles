@@ -25,8 +25,8 @@ case "$OSTYPE" in
       #rhel)
       #  ;;
       ubuntu)
-        if [[ $VERSION_ID =~ 16\. ]]; then
-          target_sys=ubuntu16
+        if [[ $VERSION_ID =~ 18\. ]]; then
+          target_sys=ubuntu18
         else
           echo "Unsupported version of Ubuntu: $VERSION" >&2
           exit 1
