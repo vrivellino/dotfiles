@@ -22,8 +22,8 @@ if pushd ~/.dotfiles/rbenv > /dev/null; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   type rbenv | command grep -q -F 'rbenv is a function' || eval "$(rbenv init -)"
 
-  rbenv install 2.5.8
-  rbenv global 2.5.8
+  rbenv install 2.7.2
+  rbenv global 2.7.2
 
   gem install rake
   gem install bundler
