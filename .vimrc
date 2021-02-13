@@ -64,6 +64,8 @@ set ai
 " no backup~ files
 set nobackup
 
+set visualbell
+
 set viminfo=%,<800,'20,/50,:100,h,f0,n~/.viminfo
 "           | |    |   |   |    | |  + viminfo file path
 "           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
