@@ -15,3 +15,4 @@ sudo apt upgrade -y
 sudo apt install -y $pkglist $pkglist2
 sudo apt install -y nodejs
 sudo apt install -y npm
+sudo apt install -y zlib1g-dev
