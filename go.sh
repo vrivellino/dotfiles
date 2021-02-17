@@ -27,6 +27,8 @@ case "$OSTYPE" in
       ubuntu)
         if [[ $VERSION_ID =~ 18\. ]]; then
           target_sys=ubuntu18
+        elif [[ $VERSION_ID =~ 20\. ]]; then
+          target_sys=ubuntu20
         else
           echo "Unsupported version of Ubuntu: $VERSION" >&2
           exit 1
