@@ -143,6 +143,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
   Plug 'altercation/vim-colors-solarized'
+  Plug 'psf/black', { 'branch': 'stable' }
   " Initialize plugin system
   call plug#end()
 endif
