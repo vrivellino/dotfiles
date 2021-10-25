@@ -8,7 +8,7 @@ set -ex
 #. "$(dirname "$0")/../versions"
 
 pkglist='gnupg2 default-jre python3 python3-pip libreadline-dev tree vim-nox zip unzip jq'
-pkglist2='gcc make autoconf automake binutils bison flex pkg-config tidy cmake libczmq-dev libffi-dev libyaml-dev libssl-dev python3-pygments python3-virtualenv python3-flake8 yamllint'
+pkglist2='gcc make autoconf automake binutils bison flex pkg-config tidy cmake libczmq-dev libffi-dev libyaml-dev libssl-dev python3-pygments python3-virtualenv python3-flake8 yamllint man-db'
 
 sudo apt update
 sudo apt upgrade -y
