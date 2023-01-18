@@ -55,6 +55,7 @@ create_virtualenv() {
   fi
 
   virtualenv -p "$python_path" "$name"
+  virtualenv --reset-app-data "$name"
 
   if [ -n "$python_home" ]; then
     pushd "$name" > /dev/null
