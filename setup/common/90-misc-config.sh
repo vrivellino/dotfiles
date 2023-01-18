@@ -25,12 +25,3 @@ if [[ $OSTYPE =~ darwin ]]; then
 else
     vim -c PlugInstall
 fi
-
-if [ -d .vim/plugged/youcompleteme ]; then
-  cd .vim/plugged/youcompleteme/
-  if [[ $OSTYPE =~ darwin ]]; then
-    /usr/local/opt/python@3.8/bin/python3.8 install.py
-  else
-    python3 install.py
-  fi
-fi
