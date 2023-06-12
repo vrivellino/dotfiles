@@ -13,7 +13,7 @@ for d in $PATH; do
 done
 IFS="$OLDIFS"
 
-for d in /usr/local/share/npm/bin /usr/local/bin "$HOME/.rbenv/bin" "$HOME/.npm-packages/bin"; do
+for d in /usr/local/share/npm/bin /usr/local/bin "$HOME/.npm-packages/bin"; do
   [ -d "$d" ] && new_path="$d:$new_path"
 done
 
