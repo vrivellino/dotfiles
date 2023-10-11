@@ -54,8 +54,8 @@ create_virtualenv() {
     python_home=$(get_python_dir "$(which $python_path)")
   fi
 
-  virtualenv -p "$python_path" "$name"
-  virtualenv --reset-app-data "$name"
+  $python_cmd -m virtualenv -p "$python_path" "$name"
+  $python_cmd -m virtualenv --reset-app-data "$name"
 
   if [ -n "$python_home" ]; then
     pushd "$name" > /dev/null
@@ -85,7 +85,7 @@ dev_py_virtualenv() {
 
   . "$name/bin/activate" && \
     pip install --upgrade pip && \
-    pip install --upgrade flake8 boto3 awscli cfn-lint pyOpenSSL grip gnureadline yamllint elasticsearch kubernetes 'pykube-ng[gcp]' && \
+    pip install --upgrade flake8 boto3 cfn-lint pyOpenSSL grip gnureadline yamllint elasticsearch kubernetes 'pykube-ng[gcp]' && \
     pip install --upgrade autopep8 black coverage docker PyGithub pytest pytest-cov pytest-mock toml tzlocal && \
     pip install --upgrade "ipython[$ipy_install_type]" && \
       deactivate

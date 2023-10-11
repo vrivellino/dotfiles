@@ -52,5 +52,5 @@ if [[ $OSTYPE =~ ^linux ]] && [ -f /etc/os-release ] && grep -q -F 'Ubuntu 16.' 
     }
 # make sure we're using homebrew'd macvim on OSX
 elif [[ $OSTYPE =~ ^darwin ]]; then
-    alias vim=/usr/local/bin/vim
+    alias vim=$HOMEBREW_PREFIX/bin/vim
 fi

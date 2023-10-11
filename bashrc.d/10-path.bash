@@ -36,3 +36,7 @@ if [[ $OSTYPE =~ darwin ]] && [ -e /usr/local/bin/mvim ]; then
 fi
 
 export PATH="./node_modules/.bin:$HOME/bin:$new_path"
+
+if [[ $OSTYPE =~ darwin ]] && [[ -n $HOMEBREW_PREFIX ]] && [[ -e $HOMEBREW_PREFIX/share/google-cloud-sdk/path.bash.inc ]]; then
+    source "$(brew --prefix)/share/google-cloud-sdk/path.bash.inc"
+fi

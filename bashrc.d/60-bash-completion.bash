@@ -1,6 +1,6 @@
 # enable git command completion
-if [[ $OSTYPE =~ ^darwin ]]; then
-  for f in /usr/local/etc/bash_completion.d/* ; do
+if [[ $OSTYPE =~ ^darwin ]] && [[ -n $HOMEBREW_PREFIX ]]; then
+  for f in ${HOMEBREW_PREFIX}/etc/bash_completion.d/* ; do
     source $f
   done
 fi
