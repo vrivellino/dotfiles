@@ -17,4 +17,5 @@ git config --global core.editor vim
 git config --global core.excludesfile ~/.dotfiles/.gitignore_global
 git config --global push.default upstream
 git config --global log.decorate short
+git config --global init.defaultBranch main
 git config --global --add --bool push.autoSetupRemote true
