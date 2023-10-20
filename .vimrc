@@ -143,6 +143,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'
   Plug 'sheerun/vim-polyglot'
   Plug 'altercation/vim-colors-solarized'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   " Plug 'psf/black', { 'branch': 'stable' }
   " Initialize plugin system
   call plug#end()
@@ -178,6 +179,7 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd FileType markdown set tw=110
 autocmd FileType javascript,yaml,ruby set expandtab tabstop=2 sw=2
 autocmd FileType vim set expandtab tabstop=2 sw=2
+autocmd FileType go set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab nolist
 
  " In text files, always limit the width of text to 78 characters
 autocmd BufRead *.txt set tw=78
@@ -244,9 +246,15 @@ endfunction
 " ALE
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
+"let g:ale_pattern_options = {
+"\   '.*\.go$': {'ale_enabled': 0},
+"\}
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
 " vim-slime
 let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
 let g:slime_python_ipython = 1
+
+" Polygot
+let g:polyglot_disabled = ['go.plugin']
