@@ -6,6 +6,7 @@ if [ ! -e ~/.gitconfig ]; then
   echo
   read -p 'Enter your name for git config> ' full_name
   read -p 'Enter your email address for git config> ' email
+  read -p 'Enter path to your ssh key for commit signing> ' ssh_key
 
   set -x
   git config --global user.name "$full_name"
@@ -19,3 +20,9 @@ git config --global push.default upstream
 git config --global log.decorate short
 git config --global init.defaultBranch main
 git config --global --add --bool push.autoSetupRemote true
+
+if [[ -s $ssh_key ]]; then
+    git config --global user.signingkey "$ssh_key"
+    git config --global gpg.format ssh
+    git config --global commit.gpgsign true
+fi

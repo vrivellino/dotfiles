@@ -34,6 +34,8 @@ git_config_update_localrepo() {
   fi
   if [ -s ../.git-signing-key ]; then
     git config user.signingKey "$(cat ../.git-signing-key)"
+    git config gpg.format openpgp
+    git config commit.gpgsign true
   fi
   if [ -s ../.git-username ]; then
     git config user.name "$(cat ../.git-username)"
