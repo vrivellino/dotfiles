@@ -126,6 +126,9 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+" Disable Polygot for Go
+let g:polyglot_disabled = ['go.plugin']
+
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   " https://github.com/junegunn/vim-plug/
   " VimPlug start
@@ -255,6 +258,3 @@ highlight link ALEErrorSign Title
 " vim-slime
 let g:slime_default_config = {"sessionname": "slime", "windowname": "0"}
 let g:slime_python_ipython = 1
-
-" Polygot
-let g:polyglot_disabled = ['go.plugin']
