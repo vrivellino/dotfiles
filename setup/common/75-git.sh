@@ -17,9 +17,10 @@ git config --global color.ui auto
 git config --global core.editor vim
 git config --global core.excludesfile ~/.dotfiles/.gitignore_global
 git config --global push.default upstream
+git config --global push.autosetupremote true
 git config --global log.decorate short
 git config --global init.defaultBranch main
-git config --global --add --bool push.autoSetupRemote true
+#git config --global --add --bool push.autoSetupRemote true
 
 if [[ -s $ssh_key ]]; then
     git config --global user.signingkey "$ssh_key"
